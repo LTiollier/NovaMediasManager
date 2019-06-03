@@ -1,1 +1,83 @@
 // Nova Tool CSS
+:root {
+  --folder-width: 6em;
+  --folder-height: calc(0.8 * var(--folder-width));
+  --folder-title-size: calc(0.16 * var(--folder-width));
+}
+
+/* ardra */
+.content--ardra {
+  background-color: #2b2d31;
+  color: #4c4e52;
+}
+
+.content--ardra::after {
+  color: #396fc5;
+}
+
+.folder--ardra {
+  margin: auto;
+}
+
+.folder--ardra .folder__icon-img--back {
+  color: #234e91;
+}
+
+.folder--ardra .folder__icon-img--cover {
+  color: #396fc5;
+}
+
+/* Folder */
+.folder {
+  position: relative;
+  z-index: 100;
+  width: var(--folder-width);
+}
+
+.folder__icon {
+  position: relative;
+  width: 100%;
+  height: var(--folder-height);
+  cursor: pointer;
+}
+
+.folder__icon-img {
+  backface-visibility: hidden;
+  transform-origin: 50% 100%;
+}
+
+.folder__icon-img,
+.folder__icon-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.folder__icon-svg {
+  fill: currentColor;
+}
+
+.image__thumb {
+  width: auto;
+  height: auto;
+  max-height: 80px;
+  max-width: 120px;
+  cursor: pointer;
+  min-height: 80px;
+}
+
+.svg__thumb {
+  height: 80px;
+  cursor: pointer;
+}
+
+.folder__caption {
+  position: relative;
+  display: inline-block;
+  line-height: 1.15;
+  margin: 0.75em 0 0;
+  color: #396fc5;
+  font-size: var(--folder-title-size); /* dynamic font sizing depending on the folder dimension */
+}

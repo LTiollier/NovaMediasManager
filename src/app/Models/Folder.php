@@ -58,10 +58,18 @@ class Folder extends Model implements HasMedia
      */
     public function getPathArrayAttribute() {
         $pathCollect = collect();
-        $pathCollect->add([
+        $pathCollect->push([
             'name' => $this->isRoot() ? 'Home' : ucfirst($this->getAttribute('name')),
             'id' => $this->getAttribute('id')
         ]);
+        $relationFolder = $this->folder;
+        while ($relationFolder) {
+            $pathCollect->prepend([
+                'name' => $relationFolder->isRoot() ? 'Home' : ucfirst($relationFolder->getAttribute('name')),
+                'id' => $relationFolder->getAttribute('id')
+            ]);
+            $relationFolder = $relationFolder->folder;
+        }
         return $pathCollect->toArray();
     }
 
