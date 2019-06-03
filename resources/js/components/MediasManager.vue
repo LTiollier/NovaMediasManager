@@ -70,7 +70,7 @@
                     maxFileSize: 1000000,
                     minNumberOfFiles: 1,
                     maxNumberOfFiles: 10,
-                    allowedFileTypes: ['image/*', 'video/*', 'text/*', 'application/pdf', '.doc', '.docx', '.xlt', '.xltx', '.ppt', '.pptx']
+                    allowedFileTypes: ['image/*', '.mp4', '.mp3', 'text/*', 'application/pdf', '.doc', '.docx', '.xlt', '.xltx', '.ppt', '.pptx']
                 },
                 meta: {
                     folderId: this.folderId,

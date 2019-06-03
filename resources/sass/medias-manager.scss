@@ -60,16 +60,17 @@
 }
 
 .image__thumb {
-  border-radius: 0.5rem;
   width: auto;
   height: auto;
-  max-height: 120px;
+  max-height: 80px;
   max-width: 120px;
   cursor: pointer;
-  border: 1px solid blue;
-  padding: 10px;
-  min-width: 120px;
-  min-height: 120px;
+  min-height: 80px;
+}
+
+.svg__thumb {
+  height: 80px;
+  cursor: pointer;
 }
 
 .folder__caption {
