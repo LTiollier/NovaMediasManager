@@ -1,0 +1,42 @@
+{
+    "name": "ltiollier/novamediasmanager",
+    "description": ":description",
+    "license": "license",
+    "authors": [
+        {
+            "name": "Tiollier Léo",
+            "email": "ltiollier30@gmail.com"
+        }
+    ],
+    "homepage": "https://github.com/ltiollier/novamediasmanager",
+    "keywords": ["Laravel", "NovaMediasManager"],
+    "require": {
+        "illuminate/support": "~5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~7.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3.0",
+        "sempro/phpunit-pretty-print": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "LTiollier\\NovaMediasManager\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LTiollier\\NovaMediasManager\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LTiollier\\NovaMediasManager\\NovaMediasManagerServiceProvider"
+            ],
+            "aliases": {
+                "NovaMediasManager": "LTiollier\\NovaMediasManager\\Facades\\NovaMediasManager"
+            }
+        }
+    }
+}
