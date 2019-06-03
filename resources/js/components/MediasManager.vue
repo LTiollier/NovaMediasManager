@@ -38,7 +38,7 @@
                 </ol>
             </nav>
             <transition name="fade">
-                <div class="px-2 overflow-y-auto">
+                <div class="px-2">
                     <div class="flex flex-wrap mx-2">
                         <folder-card v-for="childFolder in folderFolders" :folder="childFolder" :key="childFolder.id"></folder-card>
                         <image-card v-for="media in folderMedias" :media="media" :key="media.id"></image-card>

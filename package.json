@@ -26,6 +26,8 @@
         "@uppy/dashboard": "^1.0.2",
         "@uppy/tus": "^1.0.2",
         "@uppy/xhr-upload": "^1.0.2",
+        "animejs": "^3.0.1",
+        "charming": "^2.2.5",
         "vue-sweetalert2": "^2.0.5"
     }
 }

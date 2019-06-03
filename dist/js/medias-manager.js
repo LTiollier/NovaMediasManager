@@ -7327,6 +7327,8 @@ module.exports = function (_Plugin) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _anime_min__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../anime.min */ "./resources/js/anime.min.js");
+/* harmony import */ var _anime_min__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_anime_min__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -7343,9 +7345,234 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FolderCard",
   props: ['folder'],
+  mounted: function mounted() {
+    /**
+     * FolderFx obj.
+     */
+    function FolderFx(el) {
+      this.DOM = {};
+      this.DOM.el = el;
+      this.DOM.wrapper = this.DOM.el.querySelector('.folder__icon');
+      this.DOM.back = this.DOM.wrapper.querySelector('.folder__icon-img--back');
+      this.DOM.cover = this.DOM.wrapper.querySelector('.folder__icon-img--cover');
+      this.DOM.feedback = this.DOM.el.querySelector('.folder__feedback');
+      this.DOM.preview = this.DOM.el.querySelector('.folder__preview');
+      this.DOM.previewElems = this.DOM.preview.children;
+      this.totalPreview = this.DOM.previewElems.length;
+
+      this._initEvents();
+    }
+    /**
+     * Remove/Stop any animation.
+     */
+
+
+    FolderFx.prototype._removeAnimeTargets = function () {
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.preview);
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.previewElems);
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.wrapper);
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.cover);
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.el);
+
+      if (this.DOM.feedback) {
+        _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.feedback);
+        this.DOM.feedback.style.opacity = 0;
+      }
+
+      if (this.DOM.letters) {
+        _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.letters);
+      }
+    };
+
+    FolderFx.prototype._initEvents = function () {
+      var self = this;
+
+      this._mouseenterFn = function () {
+        self.intimeout = setTimeout(function () {
+          self._removeAnimeTargets();
+
+          self._in();
+        }, 75);
+      };
+
+      this._mouseleaveFn = function () {
+        clearTimeout(self.intimeout);
+
+        self._removeAnimeTargets();
+
+        self._out();
+      };
+
+      this.DOM.wrapper.addEventListener('mouseenter', this._mouseenterFn);
+      this.DOM.wrapper.addEventListener('mouseleave', this._mouseleaveFn);
+    };
+
+    FolderFx.prototype._in = function () {
+      var self = this;
+      [].slice.call(this.DOM.previewElems).forEach(function (el) {// Add default behaviour.
+        //el.style.opacity = 1;
+      });
+    };
+
+    FolderFx.prototype._out = function () {
+      var self = this;
+      [].slice.call(this.DOM.previewElems).forEach(function (el) {// Add default behaviour.
+        //el.style.opacity = 0;
+      });
+    };
+
+    function ArdraFx(el) {
+      FolderFx.call(this, el);
+    }
+
+    ArdraFx.prototype = Object.create(FolderFx.prototype);
+    ArdraFx.prototype.constructor = ArdraFx;
+
+    ArdraFx.prototype._in = function () {
+      var self = this;
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
+        targets: this.DOM.previewElems,
+        duration: 500,
+        easing: [0.1, 1, 0.3, 1],
+        translateY: function translateY(t, i, c) {
+          var radius = _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.random(110, 120);
+          return Math.round(radius * Math.sin(2 * (i + 1) * Math.PI / c)) + 'px';
+        },
+        translateX: function translateX(t, i, c) {
+          var radius = _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.random(110, 120);
+          return Math.round(radius * Math.cos(2 * (i + 1) * Math.PI / c)) + 'px';
+        },
+        rotate: function rotate(t, i, c) {
+          return [0, _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.random(-3, 3) + 'deg'];
+        },
+        scale: [0.4, 1],
+        opacity: {
+          value: 1,
+          duration: 10,
+          easing: 'linear'
+        }
+      });
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
+        targets: this.DOM.wrapper,
+        duration: 500,
+        easing: [0.1, 1, 0.3, 1],
+        scale: [1, 0.8]
+      });
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
+        targets: this.DOM.feedback,
+        easing: [0.1, 1, 0.3, 1],
+        opacity: [{
+          value: 1,
+          duration: 10
+        }, {
+          value: 0,
+          duration: 400,
+          delay: 50
+        }],
+        scale: {
+          value: [1, 10],
+          duration: 900
+        }
+      });
+    };
+
+    ArdraFx.prototype._out = function () {
+      var self = this;
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
+        targets: this.DOM.previewElems,
+        duration: 500,
+        easing: [0.1, 1, 0.3, 1],
+        translateY: 0,
+        translateX: 0,
+        rotate: 0,
+        scale: [1, 0.4],
+        opacity: {
+          value: 0,
+          duration: 250,
+          delay: 250,
+          easing: 'linear'
+        }
+      });
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
+        targets: this.DOM.wrapper,
+        duration: 500,
+        easing: [0.1, 1, 0.3, 1],
+        scale: [0.8, 1]
+      });
+    };
+
+    window.ArdraFx = ArdraFx;
+    new ArdraFx(document.querySelector('.folder--ardra'));
+  },
   methods: {},
   computed: {}
 });
@@ -7361,6 +7588,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -7764,10 +7992,10 @@ exports.push([module.i, "@charset \"UTF-8\";@-webkit-keyframes swal2-show{0%{-we
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderCard.vue?vue&type=style&index=0&id=70315b6e&scoped=true&lang=css&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FolderCard.vue?vue&type=style&index=0&id=70315b6e&scoped=true&lang=css& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderCard.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FolderCard.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7776,7 +8004,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.folder-block[data-v-70315b6e] {\n    height: 150px;\n    width: 200px;\n}\n", ""]);
+exports.push([module.i, "\n:root {\n    --folder-width: 6em;\n    --folder-height: calc(0.8 * var(--folder-width));\n    --folder-deco-width: calc(var(--folder-width) / 3.5);\n    --folder-cover-height: calc(0.7 * var(--folder-width));\n    --folder-slip-height: calc(var(--folder-height) - var(--folder-cover-height));\n    --folder-border-radius: calc(var(--folder-width) / 10);\n    --folder-title-size: calc(0.16 * var(--folder-width));\n    --thumb-width: calc(0.6 * var(--folder-width));\n}\n\n/* ardra */\n.content--ardra {\n    background-color: #2b2d31;\n    color: #4c4e52;\n}\n.content--ardra::after {\n    color: #396fc5;\n}\n.folder--ardra .folder__icon-img--back {\n    color: #234e91;\n}\n.folder--ardra .folder__icon-img--cover {\n    color: #396fc5;\n}\n.folder--ardra .folder__icon-svg--deco {\n    color: #234e91;\n}\n.folder--ardra .folder__caption {\n    color: #396fc5;\n}\n\n/* Folder */\n.folder {\n    position: relative;\n    z-index: 100;\n    width: var(--folder-width);\n}\n.folder__feedback {\n    position: absolute;\n    width: var(--thumb-width);\n    height: var(--thumb-width);\n    border-radius: 50%;\n    background: #181a1c;\n    top: 50%;\n    left: 50%;\n    margin: calc(var(--thumb-width) / -2 + var(--folder-slip-height) / 2) 0 0 calc(var(--thumb-width) / -2);\n    pointer-events: none;\n    opacity: 0;\n}\n.folder__icon {\n    position: relative;\n    width: 100%;\n    height: var(--folder-height);\n    cursor: pointer;\n}\n.folder__icon--perspective {\n    -webkit-perspective: 800px;\n            perspective: 800px;\n}\n.folder__icon-img {\n    -webkit-backface-visibility: hidden;\n            backface-visibility: hidden;\n    -webkit-transform-origin: 50% 100%;\n            transform-origin: 50% 100%;\n}\n.folder__icon-img,\n.folder__icon-svg {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n}\n.folder__icon--perspective .folder__icon-img,\n.folder__icon--perspective .folder__icon-svg {\n    -webkit-transform-style: preserve-3d;\n            transform-style: preserve-3d;\n}\n.folder__icon-svg {\n    fill: currentColor;\n}\n.folder__icon-svg--deco {\n    color: #76767f;\n    width: var(--folder-deco-width);\n    height: var(--folder-deco-width);\n    top: 50%;\n    left: 50%;\n    margin: calc( (var(--folder-deco-width) / -2) + var(--folder-slip-height) / 2 ) 0 0 calc(var(--folder-deco-width) / -2);\n}\n\n/* Inner paper sheets */\n.folder__icon-deco {\n    position: absolute;\n    bottom: 2px;\n    left: 2px;\n    width: calc(var(--folder-width) - 4px);\n    height: calc(var(--folder-cover-height) - 4px);\n    border-radius: var(--folder-border-radius);\n    background-color: #fff;\n}\n.folder__preview {\n    pointer-events: none;\n    position: absolute;\n}\n.folder__preview--thumbs {\n    width: var(--thumb-width);\n    height: var(--thumb-width);\n    top: calc((var(--folder-height) + var(--folder-slip-height)) / 2 - var(--thumb-width) / 2);\n    left: calc(var(--folder-width) / 2 - var(--thumb-width) / 2);\n}\n.folder__preview--text {\n    position: absolute;\n    left: 100%;\n    top: var(--folder-slip-height);\n    padding: 0 2em;\n    opacity: 0;\n}\n.folder__preview--magnifier {\n    top: 50%;\n    text-align: center;\n    display: flex;\n    flex-wrap: wrap;\n    align-items: flex-start;\n    justify-content: center;\n    align-content: space-between;\n    left: 50%;\n    background: #fff;\n    width: calc(var(--thumb-width) * 5);\n    height: calc(var(--thumb-width) * 5);\n    margin: calc(var(--thumb-width) * 5 / -2) 0 0 calc(var(--thumb-width) * 5 / -2);\n    padding: 3.5em;\n    border-radius: 50%;\n    opacity: 0;\n}\n.folder__preview--bar {\n    position: fixed;\n    bottom: 0;\n    left: 0;\n    width: 100%;\n}\n.folder__thumb {\n    max-width: 100%;\n    display: block;\n    position: absolute;\n    opacity: 0;\n}\n.folder__detail {\n    margin: 0;\n}\n.folder__detail-svg {\n    width: 2em;\n    height: 2em;\n    position: relative;\n    fill: #ddd;\n}\n.folder__detail-svg--gif {\n    fill: #5cc7be;\n}\n.folder__detail-svg--txt {\n    fill: #b8d8fb;\n}\n.folder__detail-svg--mp3 {\n    fill: #fbcf7b;\n}\n.folder__detail-text {\n    display: block;\n    font-size: 68.5%;\n}\n.folder__caption {\n    position: relative;\n    display: inline-block;\n    line-height: 1.15;\n    margin: 0.75em 0 0;\n    font-size: var(--folder-title-size); /* dynamic font sizing depending on the folder dimension */\n}\n", ""]);
 
 // exports
 
@@ -11295,15 +11523,15 @@ var index = (function () {
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderCard.vue?vue&type=style&index=0&id=70315b6e&scoped=true&lang=css&":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FolderCard.vue?vue&type=style&index=0&id=70315b6e&scoped=true&lang=css& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderCard.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FolderCard.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./FolderCard.vue?vue&type=style&index=0&id=70315b6e&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderCard.vue?vue&type=style&index=0&id=70315b6e&scoped=true&lang=css&");
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./FolderCard.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderCard.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -11965,10 +12193,10 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderCard.vue?vue&type=template&id=70315b6e&scoped=true&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FolderCard.vue?vue&type=template&id=70315b6e&scoped=true& ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderCard.vue?vue&type=template&id=70315b6e&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FolderCard.vue?vue&type=template&id=70315b6e& ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11982,40 +12210,235 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("transition", { attrs: { name: "fade" } }, [
     _c("div", { staticClass: "w-1/6 h-40 px-2 mb-3" }, [
-      _c(
-        "div",
-        { staticClass: "folder-block block w-full h-5/6 text-center" },
-        [
-          _c(
-            "svg",
-            {
-              staticClass: "w-2/3 h-5/6",
+      _c("svg", { staticStyle: { display: "none" } }, [
+        _c("symbol", { attrs: { id: "icon-arrow", viewBox: "0 0 24 24" } }, [
+          _c("title", [_vm._v("arrow")]),
+          _vm._v(" "),
+          _c("polygon", {
+            attrs: {
+              points:
+                "6.3,12.8 20.9,12.8 20.9,11.2 6.3,11.2 10.2,7.2 9,6 3.1,12 9,18 10.2,16.8 "
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("symbol", { attrs: { id: "icon-drop", viewBox: "0 0 24 24" } }, [
+          _c("title", [_vm._v("drop")]),
+          _vm._v(" "),
+          _c("path", {
+            attrs: {
+              d:
+                "M12,21c-3.6,0-6.6-3-6.6-6.6C5.4,11,10.8,4,11.4,3.2C11.6,3.1,11.8,3,12,3s0.4,0.1,0.6,0.3c0.6,0.8,6.1,7.8,6.1,11.2C18.6,18.1,15.6,21,12,21zM12,4.8c-1.8,2.4-5.2,7.4-5.2,9.6c0,2.9,2.3,5.2,5.2,5.2s5.2-2.3,5.2-5.2C17.2,12.2,13.8,7.3,12,4.8z"
+            }
+          }),
+          _c("path", {
+            attrs: {
+              d:
+                "M12,18.2c-0.4,0-0.7-0.3-0.7-0.7s0.3-0.7,0.7-0.7c1.3,0,2.4-1.1,2.4-2.4c0-0.4,0.3-0.7,0.7-0.7c0.4,0,0.7,0.3,0.7,0.7C15.8,16.5,14.1,18.2,12,18.2z"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "symbol",
+          { attrs: { id: "icon-folderback", viewBox: "0 0 20 16" } },
+          [
+            _c("title", [_vm._v("folder-back")]),
+            _vm._v(" "),
+            _c("path", {
               attrs: {
-                xmlns: "http://www.w3.org/2000/svg",
-                viewBox: "0 0 24 24"
+                d:
+                  "M7.5,0C7.4,0,2,0,2,0C0.9,0,0,0.9,0,2l0,12c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4c0-1.1-0.9-2-2-2c0,0-7.5,0-8,0C9,2,9.9,0,7.5,0z"
               }
-            },
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "symbol",
+          { attrs: { id: "icon-foldercover", viewBox: "0 0 20 16" } },
+          [
+            _c("title", [_vm._v("folder-cover")]),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M2,2h16c1.1,0,2,0.9,2,2v10c0,1.1-0.9,2-2,2H2c-1.1,0-2-0.9-2-2V4C0,2.9,0.9,2,2,2z"
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "symbol",
+          { attrs: { id: "icon-folderdummy", viewBox: "0 0 20 16" } },
+          [
+            _c("title", [_vm._v("folder-dummy")]),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M7.5,0C7.4,0,2,0,2,0C0.9,0,0,0.9,0,2l0,12c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4c0-1.1-0.9-2-2-2c0,0-7.5,0-8,0C9,2,9.9,0,7.5,0z"
+              }
+            }),
+            _c("path", {
+              attrs: {
+                d:
+                  "M2,2h16c1.1,0,2,0.9,2,2v10c0,1.1-0.9,2-2,2H2c-1.1,0-2-0.9-2-2V4C0,2.9,0.9,2,2,2z"
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c("symbol", { attrs: { id: "icon-users", viewBox: "0 0 24 24" } }, [
+          _c("title", [_vm._v("users")]),
+          _vm._v(" "),
+          _c("path", {
+            staticStyle: { opacity: "0.3" },
+            attrs: {
+              d:
+                "M22.2,17.7l-4-2c-0.5-0.3-0.8-0.8-0.8-1.3v-1.6c0.1-0.1,0.2-0.3,0.4-0.5c0.5-0.8,0.9-1.6,1.2-2.5\n\t\t\t\tc0.5-0.2,0.9-0.6,0.9-1.2V7c0-0.4-0.2-0.7-0.4-0.9V3.7c0,0,0.5-3.7-4.6-3.7c-5,0-4.6,3.7-4.6,3.7v2.4C10.1,6.3,9.9,6.7,9.9,7v1.7\n\t\t\t\tc0,0.4,0.2,0.8,0.6,1c0.4,1.8,1.5,3.1,1.5,3.1v1.5c0,0.6-0.3,1.1-0.8,1.3l-3.7,2c-1.1,0.6-1.7,1.7-1.7,2.9v1.3H24v-1.3\n\t\t\t\tC24,19.4,23.3,18.3,22.2,17.7z"
+            }
+          }),
+          _vm._v(" "),
+          _c("path", {
+            staticStyle: { opacity: "0.5" },
+            attrs: {
+              d:
+                "M7.5,17.7l2.5-1.3c0,0,0,0,0,0l1.2-0.7c0.5-0.3,0.8-0.8,0.8-1.3v-1.5c0,0-0.4-0.5-0.9-1.4l0,0c0,0,0,0,0,0\n\t\t\t\tc-0.1-0.1-0.1-0.2-0.2-0.3c0,0,0,0,0-0.1c-0.1-0.1-0.1-0.3-0.2-0.4c0,0,0,0,0,0c0-0.1-0.1-0.2-0.1-0.4c0,0,0-0.1,0-0.1\n\t\t\t\tc0-0.1-0.1-0.3-0.1-0.4c-0.3-0.2-0.6-0.6-0.6-1V7c0-0.4,0.2-0.7,0.4-0.9V3.8C9.8,3.3,8.9,2.9,7.4,2.9c-4,0-4.1,3.3-4.1,3.3v2.1\n\t\t\t\tC3.1,8.5,2.9,8.8,2.9,9.1v1.4c0,0.4,0.2,0.7,0.5,0.9c0.4,1.6,1.6,2.7,1.6,2.7v1.3c0,0.5-0.3,0.9-0.7,1.1l-2.8,1.7\n\t\t\t\tC0.6,18.8,0,19.7,0,20.8v1.2h5.8v-1.3C5.8,19.4,6.5,18.3,7.5,17.7z"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("symbol", { attrs: { id: "icon-file", viewBox: "0 0 20 26.8" } }, [
+          _c("title", [_vm._v("file")]),
+          _vm._v(" "),
+          _c("path", {
+            attrs: {
+              d:
+                "M2.3,0C1,0,0,1,0,2.3v22.2c0,1.2,1,2.3,2.3,2.3h15.4c1.2,0,2.3-1,2.3-2.3V6l-6-6H2.3z"
+            }
+          }),
+          _vm._v(" "),
+          _c("path", {
+            staticStyle: { opacity: "0.1", fill: "#000" },
+            attrs: { d: "M13.9,3.7V0l6,6h-3.7C14.9,6,13.9,5,13.9,3.7z" }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "symbol",
+          { attrs: { id: "icon-padlock", viewBox: "0 0 24 33.6" } },
+          [
+            _c("title", [_vm._v("padlock")]),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M23,13.5h-1.7V9.4C21.4,4.2,17.2,0,12,0C6.8,0,2.6,4.2,2.6,9.4v4.1H1c-0.5,0-1,0.4-1,1v18.2c0,0.5,0.4,1,1,1H23c0.5,0,1-0.4,1-1V14.4C24,13.9,23.6,13.5,23,13.5z M13.5,24.5v3.9c0,0.3-0.3,0.6-0.6,0.6h-1.8c-0.3,0-0.6-0.3-0.6-0.6v-3.9c-0.7-0.5-1.1-1.3-1.1-2.1c0-1.4,1.2-2.6,2.6-2.6c1.4,0,2.6,1.2,2.6,2.6C14.6,23.3,14.2,24.1,13.5,24.5z M16.9,13.5H7.1V9.4c0-2.7,2.2-4.9,4.9-4.9c2.7,0,4.9,2.2,4.9,4.9V13.5z"
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c("symbol", { attrs: { id: "icon-cloud", viewBox: "0 0 24 22.2" } }, [
+          _c("title", [_vm._v("cloud")]),
+          _vm._v(" "),
+          _c("path", {
+            attrs: {
+              d:
+                "M19.5,5.8c-0.3-1.5-1-2.9-2.2-4c-1.3-1.2-3-1.8-4.7-1.8C11.3,0,10,0.4,8.9,1.1C8,1.7,7.2,2.5,6.6,3.5c-0.2,0-0.5-0.1-0.7-0.1c-2.1,0-3.8,1.7-3.8,3.8c0,0.3,0,0.5,0.1,0.8C0.8,9,0,10.6,0,12.3C0,13.6,0.5,15,1.4,16c1,1.1,2.2,1.7,3.6,1.8c0,0,0,0,0,0h4.2c0.4,0,0.7-0.3,0.7-0.7s-0.3-0.7-0.7-0.7H5c-2-0.1-3.7-2-3.7-4.2c0-1.4,0.8-2.7,2-3.4c0.3-0.2,0.4-0.5,0.3-0.8C3.5,7.8,3.4,7.5,3.4,7.2c0-1.4,1.1-2.5,2.5-2.5c0.3,0,0.6,0,0.8,0.1c0.3,0.1,0.7,0,0.8-0.3c0.9-2,2.9-3.2,5.1-3.2c2.9,0,5.3,2.2,5.6,5.1c0,0.3,0.3,0.5,0.6,0.6c2.2,0.4,3.9,2.4,3.9,4.7c0,2.5-1.9,4.6-4.3,4.8h-3.6c-0.4,0-0.7,0.3-0.7,0.7s0.3,0.7,0.7,0.7h3.7c0,0,0,0,0,0c1.5-0.1,2.9-0.8,4-2c1-1.1,1.6-2.6,1.6-4.1C24,8.9,22.1,6.5,19.5,5.8z M16,12.9c0.3-0.3,0.3-0.7,0-0.9l-3.5-3.5c-0.1-0.1-0.3-0.2-0.5-0.2c-0.2,0-0.3,0.1-0.5,0.2L8,12c-0.3,0.3-0.3,0.7,0,0.9c0.1,0.1,0.3,0.2,0.5,0.2c0.2,0,0.3-0.1,0.5-0.2l2.4-2.4v11c0,0.4,0.3,0.7,0.7,0.7s0.7-0.3,0.7-0.7v-11l2.4,2.4C15.3,13.2,15.7,13.2,16,12.9z"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("symbol", { attrs: { id: "icon-globe", viewBox: "0 0 24 24" } }, [
+          _c("title", [_vm._v("globe")]),
+          _vm._v(" "),
+          _c("path", {
+            attrs: {
+              d:
+                "M12,0C5.4,0,0,5.4,0,12s5.4,12,12,12c6.6,0,12-5.4,12-12C24,5.4,18.6,0,12,0z M9.7,4.3l0.6,0.2V3.7l0.2-0.2L10.7,4l0.4,0.5L11,4.8l-0.7,0.2V4.5L9.7,4.9L9.5,4.7L9.7,4.3z M1,11.7c0.1-2.3,0.8-4.5,2.1-6.2c0,0,0.1,0,0.1,0c0,0.2-0.2,0.2,0,0.6c0.3,0.5,0,0.8,0,0.8S2.6,7.4,2.5,7.5C2.3,7.6,2,8.1,2.2,7.9C2.4,7.8,2.7,7.7,2.5,8C2.3,8.3,1.9,8.9,1.8,9.1c-0.1,0.2-0.5,0.7-0.5,1s-0.2,0.7-0.1,1C1.2,11.1,1.1,11.6,1,11.7z M5.3,18.6l-0.2,0.6l0.2,0.5c0,0-0.2,0.2-0.4,0.2c-0.2,0-0.2,0.1-0.4,0.1c-1.6-1.5-2.7-3.4-3.2-5.6c0.1,0,0.1,0.1,0.2,0.1c0.2,0.1,0.2,0.2,0.5,0.3c0.2,0.1,0.3,0.2,0.5,0.3s0.2,0,0.5,0.4C3.4,16,3.3,16,3.4,16.2c0.1,0.2,0.2,0.4,0.3,0.5C3.8,16.9,4,16.9,4.2,17c0.1,0.1,0.3,0.2,0.5,0.2c0.1,0,0.5,0.4,0.7,0.4c0.2,0,0.2,0.5,0.2,0.5L5.3,18.6z M7,2.7C6.4,3.3,6.6,3.1,6.4,3.3C6.3,3.4,6.3,3.5,6.1,3.7C5.8,3.9,5.6,4.1,5.6,4.1L5.2,4.3L4.8,4.1c0,0-0.3,0.1-0.3,0c0,0,0-0.1,0-0.1c1-0.9,2.2-1.7,3.5-2.2C8,1.9,7.8,2.1,7.8,2.1S7.5,2.1,7,2.7z M19.6,17.5c0,0.2-0.1,0.5-0.2,0.6c0,0.2-0.2,0.5-0.4,0.6c-0.1,0.1-0.3,0.3-0.5,0.4c-0.1,0-0.2-0.3-0.2-0.5c0-0.2,0.2-0.6,0.2-0.6s0-0.2,0.1-0.4c0-0.2,0.5-0.4,0.5-0.4l0.3-0.6c0,0,0,0.2,0,0.3C19.7,17,19.6,17.4,19.6,17.5z M19.7,13.6c-0.1,0.1-0.3,0.5-0.5,0.6c-0.1,0.2-0.3,0.4-0.5,0.6c-0.2,0.2-0.2,0.4-0.4,0.6C18.2,15.6,18,16,18,16s0.1,0.8,0.1,1c0,0.2-0.3,0.6-0.3,0.6L17.5,18L17,18.6l0,0.6c0,0-0.4,0.3-0.6,0.5c-0.2,0.2-0.2,0.3-0.3,0.5c-0.2,0.2-0.6,0.5-0.8,0.5c-0.2,0-0.9,0.2-0.9,0.2v-0.4L14.3,20c0,0-0.2-0.5-0.4-0.7c-0.1-0.2-0.1-0.4-0.3-0.6c-0.2-0.2-0.3-0.4-0.3-0.5c0-0.1,0-0.5,0-0.5s0.2-0.5,0.2-0.6c0.1-0.2,0-0.4-0.1-0.6c-0.1-0.2-0.1-0.6-0.1-0.7c0-0.1-0.3-0.3-0.5-0.5c-0.1-0.1-0.1-0.3-0.1-0.5c0-0.2-0.1-0.5-0.1-0.8c0-0.3-0.4-0.1-0.6,0c-0.2,0.1-0.4-0.1-0.4-0.3c0-0.2-0.5,0-0.7,0.1c-0.3,0.2-0.6,0.2-1,0.3c-0.3,0.1-0.5-0.1-0.5-0.1S9.2,13.8,9,13.7c-0.2-0.1-0.4-0.4-0.6-0.6c-0.2-0.2-0.6-0.8-0.6-1.1c0-0.2,0-0.4,0-0.7c0-0.3,0-0.5,0-0.7c0-0.2,0.2-0.5,0.3-0.7c0.1-0.2,0.6-0.5,0.7-0.5C8.9,9.4,9.2,9.2,9.2,9c0-0.2,0.2-0.2,0.2-0.4C9.5,8.4,9.8,8,10.2,8.2c0,0,0.3,0,0.5-0.1c0.1,0,0.5-0.2,0.6-0.2c0.2-0.1,0.6-0.1,0.6-0.1s0.3,0.1,0.4,0.1c0.1,0,0.5-0.1,0.5-0.1S13,8.4,13,8.5c0,0.1,0.1,0.2,0.3,0.3c0.2,0.1,1.2,0.3,1.6,0c0.1-0.1,0.4,0.1,0.4,0.1s1,0.2,1.2,0.3c0.2,0.1,0.5,0.2,0.5,0.3c0.1,0.1,0.4,0.5,0.4,0.6c0,0.1,0.2,0.6,0.3,0.7c0,0.2,0.2,0.6,0.3,0.8c0.1,0.2,0.8,1.1,1.1,1.5l0.7-0.1C19.9,13.1,19.8,13.5,19.7,13.6z M22.7,12.1c0-0.2-0.3-0.7-0.3-0.7S22.2,11,22,10.9c-0.2-0.1-0.3-0.3-0.6-0.5c-0.3-0.2-0.4-0.2-0.7-0.2c-0.2,0-0.5-0.3-0.8-0.5c-0.3-0.2-0.3-0.1-0.3-0.1s0.3,0.5,0.3,0.6s0.4,0.3,0.7,0.2c0,0,0.2,0.5,0.4,0.6s0,0.2-0.3,0.4c-0.2,0.2-0.2,0.1-0.3,0.2c-0.1,0.1-0.5,0.3-0.7,0.4c-0.1,0.1-0.6,0.3-0.9,0.1c-0.1-0.1-0.1-0.4-0.2-0.5c-0.1-0.2-0.9-1.4-1.4-2c-0.1-0.1-0.2-0.4-0.4-0.5c-0.1-0.1,0.3-0.1,0.3-0.1s0-0.3,0-0.5c0-0.2,0-0.5,0-0.5s-0.4,0.2-0.5,0.3c-0.1,0.1-0.2-0.2-0.4-0.4c-0.2-0.2-0.3-0.5-0.4-0.7c0-0.2,0.2-0.3,0.2-0.3l0.4-0.2c0,0,0.5-0.1,0.7,0c0.3,0,0.7,0.1,0.7,0.1s0.1-0.3,0-0.4c-0.2-0.1-0.5-0.3-0.7-0.3c-0.2,0,0.1-0.2,0.3-0.4l-0.5-0.1c0,0-0.4,0.2-0.5,0.2c-0.1,0-0.3,0.1-0.5,0.3C16,6.6,16.2,6.9,16,6.9c-0.2,0.1-0.3,0.1-0.4,0.2c-0.1,0-0.5,0-0.5,0c-0.4,0-0.2,0.4,0,0.5l-0.3-0.4l-0.2-0.6c0,0-0.4-0.2-0.5-0.3c-0.2-0.1-0.7-0.4-0.7-0.4l0,0.4l0.5,0.5l0,0l0.3,0.3l-0.5,0V6.9c-0.8-0.1-0.4-0.3-0.5-0.3c-0.1-0.1-0.4-0.3-0.4-0.3s-0.5,0.1-0.6,0.1c-0.1,0-0.2,0.2-0.4,0.2c-0.2,0.1-0.4,0.2-0.4,0.3s-0.4,0.5-0.5,0.7c-0.2,0.2-0.5,0.1-0.6,0.1c-0.1,0-0.7-0.2-0.7-0.2V6.9c0,0,0.1-0.4,0-0.5l0.4-0.1l0.6-0.1l0.2-0.1l0.3-0.3c0,0-0.3-0.2-0.1-0.5c0.1-0.1,0.5-0.2,0.6-0.3c0.2-0.1,0.4-0.2,0.4-0.2s0.3-0.2,0.6-0.5c0,0,0.2-0.1,0.5-0.2c0,0,0.7,0.6,0.8,0.6s0.6-0.3,0.6-0.3s0.1-0.4,0.1-0.5c0-0.1-0.2-0.5-0.2-0.5S14,3.5,13.8,3.7C13.7,3.8,13.6,4,13.6,4S13,4,13,3.9c0-0.1-0.1-0.3-0.2-0.5c0-0.1-0.4-0.1-0.6,0c-0.2,0.1,0-0.4,0-0.4s0.2-0.3,0.4-0.3c0.2,0,0.5-0.2,0.7-0.3C13.5,2.3,14,2,14.2,2c0.2,0,0.5,0,0.6,0c0.1,0,0.6,0,0.6,0L16.3,2c0,0,0.7,0.3,0.5,0.5c0,0,0.3,0.2,0.4,0.3c0.1,0.1,0.4-0.1,0.6-0.2C20.9,4.6,23,8.1,23,12c0,0.2,0,0.4,0,0.6C22.9,12.4,22.7,12.2,22.7,12.1z M9.9,4.5L9.9,4.5L9.9,4.5L9.9,4.5z"
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "folder folder--ardra" }, [
+        _c("div", { staticClass: "folder__feedback" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "folder__preview folder__preview--thumbs" }, [
+          _c("img", {
+            staticClass: "folder__thumb",
+            attrs: { src: "https://www.fillmurray.com/640/360" }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "folder__thumb",
+            attrs: { src: "https://www.fillmurray.com/640/360" }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "folder__thumb",
+            attrs: { src: "https://www.fillmurray.com/640/360" }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "folder__thumb",
+            attrs: { src: "https://www.fillmurray.com/640/360" }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "folder__thumb",
+            attrs: { src: "https://www.fillmurray.com/640/360" }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "folder__thumb",
+            attrs: { src: "https://www.fillmurray.com/640/360" }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "folder__thumb",
+            attrs: { src: "https://www.fillmurray.com/640/360" }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "folder__thumb",
+            attrs: { src: "https://www.fillmurray.com/640/360" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "folder__icon" }, [
+          _c(
+            "div",
+            { staticClass: "folder__icon-img folder__icon-img--back" },
             [
-              _c("path", {
-                attrs: {
-                  fill: "#B3C1D1",
-                  d:
-                    "M20 6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h7.41l2 2H20zM4 6v12h16V8h-7.41l-2-2H4z"
-                }
-              })
+              _c("svg", { staticClass: "folder__icon-svg" }, [
+                _c("use", { attrs: { "xlink:href": "#icon-folderback" } })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "folder__icon-img folder__icon-img--cover" },
+            [
+              _c("svg", { staticClass: "folder__icon-svg" }, [
+                _c("use", { attrs: { "xlink:href": "#icon-foldercover" } })
+              ]),
+              _vm._v(" "),
+              _c(
+                "svg",
+                { staticClass: "folder__icon-svg folder__icon-svg--deco" },
+                [_c("use", { attrs: { "xlink:href": "#icon-globe" } })]
+              )
             ]
           )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "h-1/6 w-full text-center text-xs border-t border-30 bg-50 flex items-center justify-center py-1"
-        },
-        [_vm._v("\n            " + _vm._s(_vm.folder.name) + "\n        ")]
-      )
+        ]),
+        _vm._v(" "),
+        _c("h3", { staticClass: "folder__caption" }, [_vm._v("Ardra")])
+      ])
     ])
   ])
 }
@@ -12043,31 +12466,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("transition", { attrs: { name: "fade" } }, [
     _c("div", { staticClass: "w-1/6 h-40 px-2 mb-3" }, [
-      _c("div", { staticClass: "max-w-sm rounded overflow-hidden" }, [
-        _c("div", { staticClass: "image-block block w-full h-5/6" }, [
-          _vm.isImage
-            ? _c("img", {
-                staticClass: "block w-full h-full bg-center bg-cover h-2/3",
-                style: { backgroundImage: "url('" + _vm.media.full_url + "')" }
-              })
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "h-1/6 w-full text-center text-xs border-t border-30 bg-50 flex items-center justify-center py-1"
-          },
-          [
-            _vm._v(
-              "\n                " +
-                _vm._s(_vm.media.file_name) +
-                "\n            "
-            )
-          ]
-        )
-      ])
+      _vm._v("\n        IMAGE\n        ")
     ])
   ])
 }
@@ -12239,7 +12638,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("transition", { attrs: { name: "fade" } }, [
-          _c("div", { staticClass: "px-2 overflow-y-auto" }, [
+          _c("div", { staticClass: "px-2" }, [
             _c(
               "div",
               { staticClass: "flex flex-wrap mx-2" },
@@ -12601,6 +13000,747 @@ module.exports = function(text, test, separator) {
 
 /***/ }),
 
+/***/ "./resources/js/anime.min.js":
+/*!***********************************!*\
+  !*** ./resources/js/anime.min.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/*
+ 2017 Julian Garnier
+ Released under the MIT license
+*/
+var $jscomp$this = this;
+
+(function (u, r) {
+   true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (r),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : undefined;
+})(this, function () {
+  function u(a) {
+    if (!g.col(a)) try {
+      return document.querySelectorAll(a);
+    } catch (b) {}
+  }
+
+  function r(a) {
+    return a.reduce(function (a, c) {
+      return a.concat(g.arr(c) ? r(c) : c);
+    }, []);
+  }
+
+  function v(a) {
+    if (g.arr(a)) return a;
+    g.str(a) && (a = u(a) || a);
+    return a instanceof NodeList || a instanceof HTMLCollection ? [].slice.call(a) : [a];
+  }
+
+  function E(a, b) {
+    return a.some(function (a) {
+      return a === b;
+    });
+  }
+
+  function z(a) {
+    var b = {},
+        c;
+
+    for (c in a) {
+      b[c] = a[c];
+    }
+
+    return b;
+  }
+
+  function F(a, b) {
+    var c = z(a),
+        d;
+
+    for (d in a) {
+      c[d] = b.hasOwnProperty(d) ? b[d] : a[d];
+    }
+
+    return c;
+  }
+
+  function A(a, b) {
+    var c = z(a),
+        d;
+
+    for (d in b) {
+      c[d] = g.und(a[d]) ? b[d] : a[d];
+    }
+
+    return c;
+  }
+
+  function R(a) {
+    a = a.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, function (a, b, c, h) {
+      return b + b + c + c + h + h;
+    });
+    var b = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(a);
+    a = parseInt(b[1], 16);
+    var c = parseInt(b[2], 16),
+        b = parseInt(b[3], 16);
+    return "rgb(" + a + "," + c + "," + b + ")";
+  }
+
+  function S(a) {
+    function b(a, b, c) {
+      0 > c && (c += 1);
+      1 < c && --c;
+      return c < 1 / 6 ? a + 6 * (b - a) * c : .5 > c ? b : c < 2 / 3 ? a + (b - a) * (2 / 3 - c) * 6 : a;
+    }
+
+    var c = /hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)/g.exec(a);
+    a = parseInt(c[1]) / 360;
+    var d = parseInt(c[2]) / 100,
+        c = parseInt(c[3]) / 100;
+    if (0 == d) d = c = a = c;else {
+      var e = .5 > c ? c * (1 + d) : c + d - c * d,
+          k = 2 * c - e,
+          d = b(k, e, a + 1 / 3),
+          c = b(k, e, a);
+      a = b(k, e, a - 1 / 3);
+    }
+    return "rgb(" + 255 * d + "," + 255 * c + "," + 255 * a + ")";
+  }
+
+  function w(a) {
+    if (a = /([\+\-]?[0-9#\.]+)(%|px|pt|em|rem|in|cm|mm|ex|pc|vw|vh|deg|rad|turn)?/.exec(a)) return a[2];
+  }
+
+  function T(a) {
+    if (-1 < a.indexOf("translate")) return "px";
+    if (-1 < a.indexOf("rotate") || -1 < a.indexOf("skew")) return "deg";
+  }
+
+  function G(a, b) {
+    return g.fnc(a) ? a(b.target, b.id, b.total) : a;
+  }
+
+  function B(a, b) {
+    if (b in a.style) return getComputedStyle(a).getPropertyValue(b.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase()) || "0";
+  }
+
+  function H(a, b) {
+    if (g.dom(a) && E(U, b)) return "transform";
+    if (g.dom(a) && (a.getAttribute(b) || g.svg(a) && a[b])) return "attribute";
+    if (g.dom(a) && "transform" !== b && B(a, b)) return "css";
+    if (null != a[b]) return "object";
+  }
+
+  function V(a, b) {
+    var c = T(b),
+        c = -1 < b.indexOf("scale") ? 1 : 0 + c;
+    a = a.style.transform;
+    if (!a) return c;
+
+    for (var d = [], e = [], k = [], h = /(\w+)\((.+?)\)/g; d = h.exec(a);) {
+      e.push(d[1]), k.push(d[2]);
+    }
+
+    a = k.filter(function (a, c) {
+      return e[c] === b;
+    });
+    return a.length ? a[0] : c;
+  }
+
+  function I(a, b) {
+    switch (H(a, b)) {
+      case "transform":
+        return V(a, b);
+
+      case "css":
+        return B(a, b);
+
+      case "attribute":
+        return a.getAttribute(b);
+    }
+
+    return a[b] || 0;
+  }
+
+  function J(a, b) {
+    var c = /^(\*=|\+=|-=)/.exec(a);
+    if (!c) return a;
+    b = parseFloat(b);
+    a = parseFloat(a.replace(c[0], ""));
+
+    switch (c[0][0]) {
+      case "+":
+        return b + a;
+
+      case "-":
+        return b - a;
+
+      case "*":
+        return b * a;
+    }
+  }
+
+  function C(a) {
+    return g.obj(a) && a.hasOwnProperty("totalLength");
+  }
+
+  function W(a, b) {
+    function c(c) {
+      c = void 0 === c ? 0 : c;
+      return a.el.getPointAtLength(1 <= b + c ? b + c : 0);
+    }
+
+    var d = c(),
+        e = c(-1),
+        k = c(1);
+
+    switch (a.property) {
+      case "x":
+        return d.x;
+
+      case "y":
+        return d.y;
+
+      case "angle":
+        return 180 * Math.atan2(k.y - e.y, k.x - e.x) / Math.PI;
+    }
+  }
+
+  function K(a, b) {
+    var c = /-?\d*\.?\d+/g;
+    a = C(a) ? a.totalLength : a;
+    if (g.col(a)) b = g.rgb(a) ? a : g.hex(a) ? R(a) : g.hsl(a) ? S(a) : void 0;else {
+      var d = w(a);
+      a = d ? a.substr(0, a.length - d.length) : a;
+      b = b ? a + b : a;
+    }
+    b += "";
+    return {
+      original: b,
+      numbers: b.match(c) ? b.match(c).map(Number) : [0],
+      strings: b.split(c)
+    };
+  }
+
+  function X(a, b) {
+    return b.reduce(function (b, d, e) {
+      return b + a[e - 1] + d;
+    });
+  }
+
+  function L(a) {
+    return (a ? r(g.arr(a) ? a.map(v) : v(a)) : []).filter(function (a, c, d) {
+      return d.indexOf(a) === c;
+    });
+  }
+
+  function Y(a) {
+    var b = L(a);
+    return b.map(function (a, d) {
+      return {
+        target: a,
+        id: d,
+        total: b.length
+      };
+    });
+  }
+
+  function Z(a, b) {
+    var c = z(b);
+
+    if (g.arr(a)) {
+      var d = a.length;
+      2 !== d || g.obj(a[0]) ? g.fnc(b.duration) || (c.duration = b.duration / d) : a = {
+        value: a
+      };
+    }
+
+    return v(a).map(function (a, c) {
+      c = c ? 0 : b.delay;
+      a = g.obj(a) && !C(a) ? a : {
+        value: a
+      };
+      g.und(a.delay) && (a.delay = c);
+      return a;
+    }).map(function (a) {
+      return A(a, c);
+    });
+  }
+
+  function aa(a, b) {
+    var c = {},
+        d;
+
+    for (d in a) {
+      var e = G(a[d], b);
+      g.arr(e) && (e = e.map(function (a) {
+        return G(a, b);
+      }), 1 === e.length && (e = e[0]));
+      c[d] = e;
+    }
+
+    c.duration = parseFloat(c.duration);
+    c.delay = parseFloat(c.delay);
+    return c;
+  }
+
+  function ba(a) {
+    return g.arr(a) ? x.apply(this, a) : M[a];
+  }
+
+  function ca(a, b) {
+    var c;
+    return a.tweens.map(function (d) {
+      d = aa(d, b);
+      var e = d.value,
+          k = I(b.target, a.name),
+          h = c ? c.to.original : k,
+          h = g.arr(e) ? e[0] : h,
+          n = J(g.arr(e) ? e[1] : e, h),
+          k = w(n) || w(h) || w(k);
+      d.isPath = C(e);
+      d.from = K(h, k);
+      d.to = K(n, k);
+      d.start = c ? c.end : a.offset;
+      d.end = d.start + d.delay + d.duration;
+      d.easing = ba(d.easing);
+      d.elasticity = (1E3 - Math.min(Math.max(d.elasticity, 1), 999)) / 1E3;
+      g.col(d.from.original) && (d.round = 1);
+      return c = d;
+    });
+  }
+
+  function da(a, b) {
+    return r(a.map(function (a) {
+      return b.map(function (b) {
+        var c = H(a.target, b.name);
+
+        if (c) {
+          var d = ca(b, a);
+          b = {
+            type: c,
+            property: b.name,
+            animatable: a,
+            tweens: d,
+            duration: d[d.length - 1].end,
+            delay: d[0].delay
+          };
+        } else b = void 0;
+
+        return b;
+      });
+    })).filter(function (a) {
+      return !g.und(a);
+    });
+  }
+
+  function N(a, b, c) {
+    var d = "delay" === a ? Math.min : Math.max;
+    return b.length ? d.apply(Math, b.map(function (b) {
+      return b[a];
+    })) : c[a];
+  }
+
+  function ea(a) {
+    var b = F(fa, a),
+        c = F(ga, a),
+        d = Y(a.targets),
+        e = [],
+        g = A(b, c),
+        h;
+
+    for (h in a) {
+      g.hasOwnProperty(h) || "targets" === h || e.push({
+        name: h,
+        offset: g.offset,
+        tweens: Z(a[h], c)
+      });
+    }
+
+    a = da(d, e);
+    return A(b, {
+      animatables: d,
+      animations: a,
+      duration: N("duration", a, c),
+      delay: N("delay", a, c)
+    });
+  }
+
+  function m(a) {
+    function b() {
+      return window.Promise && new Promise(function (a) {
+        return P = a;
+      });
+    }
+
+    function c(a) {
+      return f.reversed ? f.duration - a : a;
+    }
+
+    function d(a) {
+      for (var b = 0, c = {}, d = f.animations, e = {}; b < d.length;) {
+        var g = d[b],
+            h = g.animatable,
+            n = g.tweens;
+        e.tween = n.filter(function (b) {
+          return a < b.end;
+        })[0] || n[n.length - 1];
+        e.isPath$0 = e.tween.isPath;
+        e.round = e.tween.round;
+        e.eased = e.tween.easing(Math.min(Math.max(a - e.tween.start - e.tween.delay, 0), e.tween.duration) / e.tween.duration, e.tween.elasticity);
+        n = X(e.tween.to.numbers.map(function (a) {
+          return function (b, c) {
+            c = a.isPath$0 ? 0 : a.tween.from.numbers[c];
+            b = c + a.eased * (b - c);
+            a.isPath$0 && (b = W(a.tween.value, b));
+            a.round && (b = Math.round(b * a.round) / a.round);
+            return b;
+          };
+        }(e)), e.tween.to.strings);
+        ha[g.type](h.target, g.property, n, c, h.id);
+        g.currentValue = n;
+        b++;
+        e = {
+          isPath$0: e.isPath$0,
+          tween: e.tween,
+          eased: e.eased,
+          round: e.round
+        };
+      }
+
+      if (c) for (var k in c) {
+        D || (D = B(document.body, "transform") ? "transform" : "-webkit-transform"), f.animatables[k].target.style[D] = c[k].join(" ");
+      }
+      f.currentTime = a;
+      f.progress = a / f.duration * 100;
+    }
+
+    function e(a) {
+      if (f[a]) f[a](f);
+    }
+
+    function g() {
+      f.remaining && !0 !== f.remaining && f.remaining--;
+    }
+
+    function h(a) {
+      var h = f.duration,
+          k = f.offset,
+          m = f.delay,
+          O = f.currentTime,
+          p = f.reversed,
+          q = c(a),
+          q = Math.min(Math.max(q, 0), h);
+      q > k && q < h ? (d(q), !f.began && q >= m && (f.began = !0, e("begin")), e("run")) : (q <= k && 0 !== O && (d(0), p && g()), q >= h && O !== h && (d(h), p || g()));
+      a >= h && (f.remaining ? (t = n, "alternate" === f.direction && (f.reversed = !f.reversed)) : (f.pause(), P(), Q = b(), f.completed || (f.completed = !0, e("complete"))), l = 0);
+      if (f.children) for (a = f.children, h = 0; h < a.length; h++) {
+        a[h].seek(q);
+      }
+      e("update");
+    }
+
+    a = void 0 === a ? {} : a;
+    var n,
+        t,
+        l = 0,
+        P = null,
+        Q = b(),
+        f = ea(a);
+
+    f.reset = function () {
+      var a = f.direction,
+          b = f.loop;
+      f.currentTime = 0;
+      f.progress = 0;
+      f.paused = !0;
+      f.began = !1;
+      f.completed = !1;
+      f.reversed = "reverse" === a;
+      f.remaining = "alternate" === a && 1 === b ? 2 : b;
+    };
+
+    f.tick = function (a) {
+      n = a;
+      t || (t = n);
+      h((l + n - t) * m.speed);
+    };
+
+    f.seek = function (a) {
+      h(c(a));
+    };
+
+    f.pause = function () {
+      var a = p.indexOf(f);
+      -1 < a && p.splice(a, 1);
+      f.paused = !0;
+    };
+
+    f.play = function () {
+      f.paused && (f.paused = !1, t = 0, l = f.completed ? 0 : c(f.currentTime), p.push(f), y || ia());
+    };
+
+    f.reverse = function () {
+      f.reversed = !f.reversed;
+      t = 0;
+      l = c(f.currentTime);
+    };
+
+    f.restart = function () {
+      f.pause();
+      f.reset();
+      f.play();
+    };
+
+    f.finished = Q;
+    f.reset();
+    f.autoplay && f.play();
+    return f;
+  }
+
+  var fa = {
+    update: void 0,
+    begin: void 0,
+    run: void 0,
+    complete: void 0,
+    loop: 1,
+    direction: "normal",
+    autoplay: !0,
+    offset: 0
+  },
+      ga = {
+    duration: 1E3,
+    delay: 0,
+    easing: "easeOutElastic",
+    elasticity: 500,
+    round: 0
+  },
+      U = "translateX translateY translateZ rotate rotateX rotateY rotateZ scale scaleX scaleY scaleZ skewX skewY".split(" "),
+      D,
+      g = {
+    arr: function arr(a) {
+      return Array.isArray(a);
+    },
+    obj: function obj(a) {
+      return -1 < Object.prototype.toString.call(a).indexOf("Object");
+    },
+    svg: function svg(a) {
+      return a instanceof SVGElement;
+    },
+    dom: function dom(a) {
+      return a.nodeType || g.svg(a);
+    },
+    str: function str(a) {
+      return "string" === typeof a;
+    },
+    fnc: function fnc(a) {
+      return "function" === typeof a;
+    },
+    und: function und(a) {
+      return "undefined" === typeof a;
+    },
+    hex: function hex(a) {
+      return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(a);
+    },
+    rgb: function rgb(a) {
+      return /^rgb/.test(a);
+    },
+    hsl: function hsl(a) {
+      return /^hsl/.test(a);
+    },
+    col: function col(a) {
+      return g.hex(a) || g.rgb(a) || g.hsl(a);
+    }
+  },
+      x = function () {
+    function a(a, c, d) {
+      return (((1 - 3 * d + 3 * c) * a + (3 * d - 6 * c)) * a + 3 * c) * a;
+    }
+
+    return function (b, c, d, e) {
+      if (0 <= b && 1 >= b && 0 <= d && 1 >= d) {
+        var g = new Float32Array(11);
+        if (b !== c || d !== e) for (var h = 0; 11 > h; ++h) {
+          g[h] = a(.1 * h, b, d);
+        }
+        return function (h) {
+          if (b === c && d === e) return h;
+          if (0 === h) return 0;
+          if (1 === h) return 1;
+
+          for (var k = 0, l = 1; 10 !== l && g[l] <= h; ++l) {
+            k += .1;
+          }
+
+          --l;
+          var l = k + (h - g[l]) / (g[l + 1] - g[l]) * .1,
+              n = 3 * (1 - 3 * d + 3 * b) * l * l + 2 * (3 * d - 6 * b) * l + 3 * b;
+
+          if (.001 <= n) {
+            for (k = 0; 4 > k; ++k) {
+              n = 3 * (1 - 3 * d + 3 * b) * l * l + 2 * (3 * d - 6 * b) * l + 3 * b;
+              if (0 === n) break;
+              var m = a(l, b, d) - h,
+                  l = l - m / n;
+            }
+
+            h = l;
+          } else if (0 === n) h = l;else {
+            var l = k,
+                k = k + .1,
+                f = 0;
+
+            do {
+              m = l + (k - l) / 2, n = a(m, b, d) - h, 0 < n ? k = m : l = m;
+            } while (1e-7 < Math.abs(n) && 10 > ++f);
+
+            h = m;
+          }
+
+          return a(h, c, e);
+        };
+      }
+    };
+  }(),
+      M = function () {
+    function a(a, b) {
+      return 0 === a || 1 === a ? a : -Math.pow(2, 10 * (a - 1)) * Math.sin(2 * (a - 1 - b / (2 * Math.PI) * Math.asin(1)) * Math.PI / b);
+    }
+
+    var b = "Quad Cubic Quart Quint Sine Expo Circ Back Elastic".split(" "),
+        c = {
+      In: [[.55, .085, .68, .53], [.55, .055, .675, .19], [.895, .03, .685, .22], [.755, .05, .855, .06], [.47, 0, .745, .715], [.95, .05, .795, .035], [.6, .04, .98, .335], [.6, -.28, .735, .045], a],
+      Out: [[.25, .46, .45, .94], [.215, .61, .355, 1], [.165, .84, .44, 1], [.23, 1, .32, 1], [.39, .575, .565, 1], [.19, 1, .22, 1], [.075, .82, .165, 1], [.175, .885, .32, 1.275], function (b, c) {
+        return 1 - a(1 - b, c);
+      }],
+      InOut: [[.455, .03, .515, .955], [.645, .045, .355, 1], [.77, 0, .175, 1], [.86, 0, .07, 1], [.445, .05, .55, .95], [1, 0, 0, 1], [.785, .135, .15, .86], [.68, -.55, .265, 1.55], function (b, c) {
+        return .5 > b ? a(2 * b, c) / 2 : 1 - a(-2 * b + 2, c) / 2;
+      }]
+    },
+        d = {
+      linear: x(.25, .25, .75, .75)
+    },
+        e = {},
+        k;
+
+    for (k in c) {
+      e.type = k, c[e.type].forEach(function (a) {
+        return function (c, e) {
+          d["ease" + a.type + b[e]] = g.fnc(c) ? c : x.apply($jscomp$this, c);
+        };
+      }(e)), e = {
+        type: e.type
+      };
+    }
+
+    return d;
+  }(),
+      ha = {
+    css: function css(a, b, c) {
+      return a.style[b] = c;
+    },
+    attribute: function attribute(a, b, c) {
+      return a.setAttribute(b, c);
+    },
+    object: function object(a, b, c) {
+      return a[b] = c;
+    },
+    transform: function transform(a, b, c, d, e) {
+      d[e] || (d[e] = []);
+      d[e].push(b + "(" + c + ")");
+    }
+  },
+      p = [],
+      y = 0,
+      ia = function () {
+    function a() {
+      y = requestAnimationFrame(b);
+    }
+
+    function b(b) {
+      var c = p.length;
+
+      if (c) {
+        for (var e = 0; e < c;) {
+          p[e] && p[e].tick(b), e++;
+        }
+
+        a();
+      } else cancelAnimationFrame(y), y = 0;
+    }
+
+    return a;
+  }();
+
+  m.version = "2.0.1";
+  m.speed = 1;
+  m.running = p;
+
+  m.remove = function (a) {
+    a = L(a);
+
+    for (var b = p.length - 1; 0 <= b; b--) {
+      for (var c = p[b], d = c.animations, e = d.length - 1; 0 <= e; e--) {
+        E(a, d[e].animatable.target) && (d.splice(e, 1), d.length || c.pause());
+      }
+    }
+  };
+
+  m.getValue = I;
+
+  m.path = function (a, b) {
+    var c = g.str(a) ? u(a)[0] : a,
+        d = b || 100;
+    return function (a) {
+      return {
+        el: c,
+        property: a,
+        totalLength: c.getTotalLength() * (d / 100)
+      };
+    };
+  };
+
+  m.setDashoffset = function (a) {
+    var b = a.getTotalLength();
+    a.setAttribute("stroke-dasharray", b);
+    return b;
+  };
+
+  m.bezier = x;
+  m.easings = M;
+
+  m.timeline = function (a) {
+    var b = m(a);
+    b.duration = 0;
+    b.children = [];
+
+    b.add = function (a) {
+      v(a).forEach(function (a) {
+        var c = a.offset,
+            d = b.duration;
+        a.autoplay = !1;
+        a.offset = g.und(c) ? d : J(c, d);
+        a = m(a);
+        a.duration > d && (b.duration = a.duration);
+        b.children.push(a);
+      });
+      return b;
+    };
+
+    return b;
+  };
+
+  m.random = function (a, b) {
+    return Math.floor(Math.random() * (b - a + 1)) + a;
+  };
+
+  return m;
+});
+
+/***/ }),
+
 /***/ "./resources/js/api.js":
 /*!*****************************!*\
   !*** ./resources/js/api.js ***!
@@ -12640,9 +13780,9 @@ function storeFolder(folder) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _FolderCard_vue_vue_type_template_id_70315b6e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FolderCard.vue?vue&type=template&id=70315b6e&scoped=true& */ "./resources/js/components/FolderCard.vue?vue&type=template&id=70315b6e&scoped=true&");
+/* harmony import */ var _FolderCard_vue_vue_type_template_id_70315b6e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FolderCard.vue?vue&type=template&id=70315b6e& */ "./resources/js/components/FolderCard.vue?vue&type=template&id=70315b6e&");
 /* harmony import */ var _FolderCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FolderCard.vue?vue&type=script&lang=js& */ "./resources/js/components/FolderCard.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _FolderCard_vue_vue_type_style_index_0_id_70315b6e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FolderCard.vue?vue&type=style&index=0&id=70315b6e&scoped=true&lang=css& */ "./resources/js/components/FolderCard.vue?vue&type=style&index=0&id=70315b6e&scoped=true&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _FolderCard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FolderCard.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/FolderCard.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -12654,11 +13794,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _FolderCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _FolderCard_vue_vue_type_template_id_70315b6e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _FolderCard_vue_vue_type_template_id_70315b6e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _FolderCard_vue_vue_type_template_id_70315b6e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FolderCard_vue_vue_type_template_id_70315b6e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "70315b6e",
+  null,
   null
   
 )
@@ -12684,35 +13824,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/FolderCard.vue?vue&type=style&index=0&id=70315b6e&scoped=true&lang=css&":
-/*!*********************************************************************************************************!*\
-  !*** ./resources/js/components/FolderCard.vue?vue&type=style&index=0&id=70315b6e&scoped=true&lang=css& ***!
-  \*********************************************************************************************************/
+/***/ "./resources/js/components/FolderCard.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/FolderCard.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_style_index_0_id_70315b6e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./FolderCard.vue?vue&type=style&index=0&id=70315b6e&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderCard.vue?vue&type=style&index=0&id=70315b6e&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_style_index_0_id_70315b6e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_style_index_0_id_70315b6e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_style_index_0_id_70315b6e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_style_index_0_id_70315b6e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_style_index_0_id_70315b6e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./FolderCard.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderCard.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/components/FolderCard.vue?vue&type=template&id=70315b6e&scoped=true&":
-/*!*******************************************************************************************!*\
-  !*** ./resources/js/components/FolderCard.vue?vue&type=template&id=70315b6e&scoped=true& ***!
-  \*******************************************************************************************/
+/***/ "./resources/js/components/FolderCard.vue?vue&type=template&id=70315b6e&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/FolderCard.vue?vue&type=template&id=70315b6e& ***!
+  \*******************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_template_id_70315b6e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./FolderCard.vue?vue&type=template&id=70315b6e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderCard.vue?vue&type=template&id=70315b6e&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_template_id_70315b6e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_template_id_70315b6e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./FolderCard.vue?vue&type=template&id=70315b6e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderCard.vue?vue&type=template&id=70315b6e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_template_id_70315b6e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_template_id_70315b6e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderCard_vue_vue_type_template_id_70315b6e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
