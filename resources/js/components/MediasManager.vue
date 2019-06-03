@@ -40,7 +40,7 @@
             <transition name="fade">
                 <div class="px-2">
                     <div class="flex flex-wrap mx-2">
-                        <folder-card v-for="childFolder in folderFolders" :folder="childFolder" :key="childFolder.id"></folder-card>
+                        <folder-card v-for="childFolder in folderFolders" :folder="childFolder" :key="childFolder.id" @clickFolder="openFolder(childFolder)"></folder-card>
                         <image-card v-for="media in folderMedias" :media="media" :key="media.id"></image-card>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                     maxFileSize: 1000000,
                     minNumberOfFiles: 1,
                     maxNumberOfFiles: 10,
-                    allowedFileTypes: ['image/*', 'video/*']
+                    allowedFileTypes: ['image/*', 'video/*', 'text/*', 'application/pdf', '.doc', '.docx', '.xlt', '.xltx', '.ppt', '.pptx']
                 },
                 meta: {
                     folderId: this.folderId,
@@ -137,6 +137,10 @@
                 }).then((response) => {
                     this.$emit('newFolder');
                 });
+            },
+
+            openFolder(folder) {
+                this.$emit('openFolder', folder.id);
             }
         },
 

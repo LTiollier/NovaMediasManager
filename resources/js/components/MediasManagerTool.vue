@@ -1,7 +1,7 @@
 <template>
     <div>
         <heading class="mb-6">Medias manager</heading>
-        <medias-manager :folder="folder" @uploadComplete="reloadInfoFolder" @newFolder="reloadInfoFolder"></medias-manager>
+        <medias-manager :folder="folder" @uploadComplete="reloadInfoFolder" @newFolder="reloadInfoFolder" @openFolder="changeFolder"></medias-manager>
     </div>
 </template>
 
@@ -32,6 +32,13 @@
             },
             reloadInfoFolder() {
                 getFolder(this.folder.id).then((response) => {
+                    this.folder = response.data;
+                }).catch((error) => {
+                    console.log(error);
+                });
+            },
+            changeFolder(id) {
+                getFolder(id).then((response) => {
                     this.folder = response.data;
                 }).catch((error) => {
                     console.log(error);
