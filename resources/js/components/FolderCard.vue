@@ -52,7 +52,7 @@
                     <path d="M12,0C5.4,0,0,5.4,0,12s5.4,12,12,12c6.6,0,12-5.4,12-12C24,5.4,18.6,0,12,0z M9.7,4.3l0.6,0.2V3.7l0.2-0.2L10.7,4l0.4,0.5L11,4.8l-0.7,0.2V4.5L9.7,4.9L9.5,4.7L9.7,4.3z M1,11.7c0.1-2.3,0.8-4.5,2.1-6.2c0,0,0.1,0,0.1,0c0,0.2-0.2,0.2,0,0.6c0.3,0.5,0,0.8,0,0.8S2.6,7.4,2.5,7.5C2.3,7.6,2,8.1,2.2,7.9C2.4,7.8,2.7,7.7,2.5,8C2.3,8.3,1.9,8.9,1.8,9.1c-0.1,0.2-0.5,0.7-0.5,1s-0.2,0.7-0.1,1C1.2,11.1,1.1,11.6,1,11.7z M5.3,18.6l-0.2,0.6l0.2,0.5c0,0-0.2,0.2-0.4,0.2c-0.2,0-0.2,0.1-0.4,0.1c-1.6-1.5-2.7-3.4-3.2-5.6c0.1,0,0.1,0.1,0.2,0.1c0.2,0.1,0.2,0.2,0.5,0.3c0.2,0.1,0.3,0.2,0.5,0.3s0.2,0,0.5,0.4C3.4,16,3.3,16,3.4,16.2c0.1,0.2,0.2,0.4,0.3,0.5C3.8,16.9,4,16.9,4.2,17c0.1,0.1,0.3,0.2,0.5,0.2c0.1,0,0.5,0.4,0.7,0.4c0.2,0,0.2,0.5,0.2,0.5L5.3,18.6z M7,2.7C6.4,3.3,6.6,3.1,6.4,3.3C6.3,3.4,6.3,3.5,6.1,3.7C5.8,3.9,5.6,4.1,5.6,4.1L5.2,4.3L4.8,4.1c0,0-0.3,0.1-0.3,0c0,0,0-0.1,0-0.1c1-0.9,2.2-1.7,3.5-2.2C8,1.9,7.8,2.1,7.8,2.1S7.5,2.1,7,2.7z M19.6,17.5c0,0.2-0.1,0.5-0.2,0.6c0,0.2-0.2,0.5-0.4,0.6c-0.1,0.1-0.3,0.3-0.5,0.4c-0.1,0-0.2-0.3-0.2-0.5c0-0.2,0.2-0.6,0.2-0.6s0-0.2,0.1-0.4c0-0.2,0.5-0.4,0.5-0.4l0.3-0.6c0,0,0,0.2,0,0.3C19.7,17,19.6,17.4,19.6,17.5z M19.7,13.6c-0.1,0.1-0.3,0.5-0.5,0.6c-0.1,0.2-0.3,0.4-0.5,0.6c-0.2,0.2-0.2,0.4-0.4,0.6C18.2,15.6,18,16,18,16s0.1,0.8,0.1,1c0,0.2-0.3,0.6-0.3,0.6L17.5,18L17,18.6l0,0.6c0,0-0.4,0.3-0.6,0.5c-0.2,0.2-0.2,0.3-0.3,0.5c-0.2,0.2-0.6,0.5-0.8,0.5c-0.2,0-0.9,0.2-0.9,0.2v-0.4L14.3,20c0,0-0.2-0.5-0.4-0.7c-0.1-0.2-0.1-0.4-0.3-0.6c-0.2-0.2-0.3-0.4-0.3-0.5c0-0.1,0-0.5,0-0.5s0.2-0.5,0.2-0.6c0.1-0.2,0-0.4-0.1-0.6c-0.1-0.2-0.1-0.6-0.1-0.7c0-0.1-0.3-0.3-0.5-0.5c-0.1-0.1-0.1-0.3-0.1-0.5c0-0.2-0.1-0.5-0.1-0.8c0-0.3-0.4-0.1-0.6,0c-0.2,0.1-0.4-0.1-0.4-0.3c0-0.2-0.5,0-0.7,0.1c-0.3,0.2-0.6,0.2-1,0.3c-0.3,0.1-0.5-0.1-0.5-0.1S9.2,13.8,9,13.7c-0.2-0.1-0.4-0.4-0.6-0.6c-0.2-0.2-0.6-0.8-0.6-1.1c0-0.2,0-0.4,0-0.7c0-0.3,0-0.5,0-0.7c0-0.2,0.2-0.5,0.3-0.7c0.1-0.2,0.6-0.5,0.7-0.5C8.9,9.4,9.2,9.2,9.2,9c0-0.2,0.2-0.2,0.2-0.4C9.5,8.4,9.8,8,10.2,8.2c0,0,0.3,0,0.5-0.1c0.1,0,0.5-0.2,0.6-0.2c0.2-0.1,0.6-0.1,0.6-0.1s0.3,0.1,0.4,0.1c0.1,0,0.5-0.1,0.5-0.1S13,8.4,13,8.5c0,0.1,0.1,0.2,0.3,0.3c0.2,0.1,1.2,0.3,1.6,0c0.1-0.1,0.4,0.1,0.4,0.1s1,0.2,1.2,0.3c0.2,0.1,0.5,0.2,0.5,0.3c0.1,0.1,0.4,0.5,0.4,0.6c0,0.1,0.2,0.6,0.3,0.7c0,0.2,0.2,0.6,0.3,0.8c0.1,0.2,0.8,1.1,1.1,1.5l0.7-0.1C19.9,13.1,19.8,13.5,19.7,13.6z M22.7,12.1c0-0.2-0.3-0.7-0.3-0.7S22.2,11,22,10.9c-0.2-0.1-0.3-0.3-0.6-0.5c-0.3-0.2-0.4-0.2-0.7-0.2c-0.2,0-0.5-0.3-0.8-0.5c-0.3-0.2-0.3-0.1-0.3-0.1s0.3,0.5,0.3,0.6s0.4,0.3,0.7,0.2c0,0,0.2,0.5,0.4,0.6s0,0.2-0.3,0.4c-0.2,0.2-0.2,0.1-0.3,0.2c-0.1,0.1-0.5,0.3-0.7,0.4c-0.1,0.1-0.6,0.3-0.9,0.1c-0.1-0.1-0.1-0.4-0.2-0.5c-0.1-0.2-0.9-1.4-1.4-2c-0.1-0.1-0.2-0.4-0.4-0.5c-0.1-0.1,0.3-0.1,0.3-0.1s0-0.3,0-0.5c0-0.2,0-0.5,0-0.5s-0.4,0.2-0.5,0.3c-0.1,0.1-0.2-0.2-0.4-0.4c-0.2-0.2-0.3-0.5-0.4-0.7c0-0.2,0.2-0.3,0.2-0.3l0.4-0.2c0,0,0.5-0.1,0.7,0c0.3,0,0.7,0.1,0.7,0.1s0.1-0.3,0-0.4c-0.2-0.1-0.5-0.3-0.7-0.3c-0.2,0,0.1-0.2,0.3-0.4l-0.5-0.1c0,0-0.4,0.2-0.5,0.2c-0.1,0-0.3,0.1-0.5,0.3C16,6.6,16.2,6.9,16,6.9c-0.2,0.1-0.3,0.1-0.4,0.2c-0.1,0-0.5,0-0.5,0c-0.4,0-0.2,0.4,0,0.5l-0.3-0.4l-0.2-0.6c0,0-0.4-0.2-0.5-0.3c-0.2-0.1-0.7-0.4-0.7-0.4l0,0.4l0.5,0.5l0,0l0.3,0.3l-0.5,0V6.9c-0.8-0.1-0.4-0.3-0.5-0.3c-0.1-0.1-0.4-0.3-0.4-0.3s-0.5,0.1-0.6,0.1c-0.1,0-0.2,0.2-0.4,0.2c-0.2,0.1-0.4,0.2-0.4,0.3s-0.4,0.5-0.5,0.7c-0.2,0.2-0.5,0.1-0.6,0.1c-0.1,0-0.7-0.2-0.7-0.2V6.9c0,0,0.1-0.4,0-0.5l0.4-0.1l0.6-0.1l0.2-0.1l0.3-0.3c0,0-0.3-0.2-0.1-0.5c0.1-0.1,0.5-0.2,0.6-0.3c0.2-0.1,0.4-0.2,0.4-0.2s0.3-0.2,0.6-0.5c0,0,0.2-0.1,0.5-0.2c0,0,0.7,0.6,0.8,0.6s0.6-0.3,0.6-0.3s0.1-0.4,0.1-0.5c0-0.1-0.2-0.5-0.2-0.5S14,3.5,13.8,3.7C13.7,3.8,13.6,4,13.6,4S13,4,13,3.9c0-0.1-0.1-0.3-0.2-0.5c0-0.1-0.4-0.1-0.6,0c-0.2,0.1,0-0.4,0-0.4s0.2-0.3,0.4-0.3c0.2,0,0.5-0.2,0.7-0.3C13.5,2.3,14,2,14.2,2c0.2,0,0.5,0,0.6,0c0.1,0,0.6,0,0.6,0L16.3,2c0,0,0.7,0.3,0.5,0.5c0,0,0.3,0.2,0.4,0.3c0.1,0.1,0.4-0.1,0.6-0.2C20.9,4.6,23,8.1,23,12c0,0.2,0,0.4,0,0.6C22.9,12.4,22.7,12.2,22.7,12.1z M9.9,4.5L9.9,4.5L9.9,4.5L9.9,4.5z"/>
                 </symbol>
             </svg>
-            <div class="folder folder--ardra">
+            <div class="folder folder--ardra" ref="folder">
                 <div class="folder__feedback"></div>
                 <div class="folder__preview folder__preview--thumbs">
                     <img class="folder__thumb" src="https://www.fillmurray.com/640/360" />
@@ -80,170 +80,13 @@
 </template>
 
 <script>
-    import anime from '../anime.min';
+    import FolderFx from '../Classes/FolderFx';
+
     export default {
         name: "FolderCard",
         props: ['folder'],
         mounted() {
-            /**
-             * FolderFx obj.
-             */
-            function FolderFx(el) {
-                this.DOM = {};
-                this.DOM.el = el;
-                this.DOM.wrapper = this.DOM.el.querySelector('.folder__icon');
-                this.DOM.back = this.DOM.wrapper.querySelector('.folder__icon-img--back');
-                this.DOM.cover = this.DOM.wrapper.querySelector('.folder__icon-img--cover');
-                this.DOM.feedback = this.DOM.el.querySelector('.folder__feedback');
-                this.DOM.preview = this.DOM.el.querySelector('.folder__preview');
-                this.DOM.previewElems = this.DOM.preview.children;
-                this.totalPreview = this.DOM.previewElems.length;
-
-                this._initEvents();
-            }
-
-            /**
-             * Remove/Stop any animation.
-             */
-            FolderFx.prototype._removeAnimeTargets = function() {
-                anime.remove(this.DOM.preview);
-                anime.remove(this.DOM.previewElems);
-                anime.remove(this.DOM.wrapper);
-                anime.remove(this.DOM.cover);
-                anime.remove(this.DOM.el);
-                if( this.DOM.feedback ) {
-                    anime.remove(this.DOM.feedback);
-                    this.DOM.feedback.style.opacity = 0;
-                }
-                if( this.DOM.letters ) {
-                    anime.remove(this.DOM.letters);
-                }
-            };
-
-            FolderFx.prototype._initEvents = function() {
-                const self = this;
-                this._mouseenterFn = function() {
-                    self.intimeout = setTimeout(function() {
-                        self._removeAnimeTargets();
-                        self._in();
-                    }, 75);
-                };
-                this._mouseleaveFn = function() {
-                    clearTimeout(self.intimeout);
-                    self._removeAnimeTargets();
-                    self._out();
-                };
-                this.DOM.wrapper.addEventListener('mouseenter', this._mouseenterFn);
-                this.DOM.wrapper.addEventListener('mouseleave', this._mouseleaveFn);
-            };
-
-            FolderFx.prototype._in = function() {
-                const self = this;
-                [].slice.call(this.DOM.previewElems).forEach(function(el) {
-                    // Add default behaviour.
-                    //el.style.opacity = 1;
-                });
-            };
-
-            FolderFx.prototype._out = function() {
-                const self = this;
-                [].slice.call(this.DOM.previewElems).forEach(function(el) {
-                    // Add default behaviour.
-                    //el.style.opacity = 0;
-                });
-            };
-
-            function ArdraFx(el) {
-                FolderFx.call(this, el);
-            }
-
-            ArdraFx.prototype = Object.create(FolderFx.prototype);
-            ArdraFx.prototype.constructor = ArdraFx;
-
-            ArdraFx.prototype._in = function() {
-                const self = this;
-
-                anime({
-                    targets: this.DOM.previewElems,
-                    duration: 500,
-                    easing: [0.1,1,0.3,1],
-                    translateY: function(t, i, c) {
-                        const radius = anime.random(110,120);
-                        return Math.round(radius * Math.sin(2*(i+1)*Math.PI/c)) + 'px';
-                    },
-                    translateX: function(t, i, c) {
-                        const radius = anime.random(110,120);
-                        return Math.round(radius * Math.cos(2*(i+1)*Math.PI/c)) + 'px';
-                    },
-                    rotate: function(t, i, c) {
-                        return [0,anime.random(-3,3) + 'deg'];
-                    },
-                    scale: [0.4,1],
-                    opacity: {
-                        value: 1,
-                        duration: 10,
-                        easing: 'linear'
-                    }
-                });
-
-                anime({
-                    targets: this.DOM.wrapper,
-                    duration: 500,
-                    easing: [0.1,1,0.3,1],
-                    scale: [1,0.8]
-                });
-
-                anime({
-                    targets: this.DOM.feedback,
-                    easing: [0.1,1,0.3,1],
-                    opacity: [
-                        {
-                            value:1,
-                            duration:10
-                        },
-                        {
-                            value:0,
-                            duration:400,
-                            delay:50
-                        }
-                    ],
-                    scale: {
-                        value: [1,10],
-                        duration: 900
-                    }
-                });
-            };
-
-            ArdraFx.prototype._out = function() {
-                const self = this;
-
-                anime({
-                    targets: this.DOM.previewElems,
-                    duration: 500,
-                    easing: [0.1,1,0.3,1],
-                    translateY: 0,
-                    translateX: 0,
-                    rotate: 0,
-                    scale: [1,0.4],
-                    opacity: {
-                        value: 0,
-                        duration: 250,
-                        delay: 250,
-                        easing: 'linear'
-                    }
-                });
-
-                anime({
-                    targets: this.DOM.wrapper,
-                    duration: 500,
-                    easing: [0.1,1,0.3,1],
-                    scale: [0.8,1]
-                });
-            };
-
-            window.ArdraFx = ArdraFx;
-
-            new ArdraFx(document.querySelector('.folder--ardra'));
+            new FolderFx(this.$refs.folder);
         },
         methods: {},
         computed: {}

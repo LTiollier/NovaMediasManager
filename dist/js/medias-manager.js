@@ -7327,8 +7327,7 @@ module.exports = function (_Plugin) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _anime_min__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../anime.min */ "./resources/js/anime.min.js");
-/* harmony import */ var _anime_min__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_anime_min__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Classes_FolderFx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Classes/FolderFx */ "./resources/js/Classes/FolderFx.js");
 //
 //
 //
@@ -7415,163 +7414,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "FolderCard",
   props: ['folder'],
   mounted: function mounted() {
-    /**
-     * FolderFx obj.
-     */
-    function FolderFx(el) {
-      this.DOM = {};
-      this.DOM.el = el;
-      this.DOM.wrapper = this.DOM.el.querySelector('.folder__icon');
-      this.DOM.back = this.DOM.wrapper.querySelector('.folder__icon-img--back');
-      this.DOM.cover = this.DOM.wrapper.querySelector('.folder__icon-img--cover');
-      this.DOM.feedback = this.DOM.el.querySelector('.folder__feedback');
-      this.DOM.preview = this.DOM.el.querySelector('.folder__preview');
-      this.DOM.previewElems = this.DOM.preview.children;
-      this.totalPreview = this.DOM.previewElems.length;
-
-      this._initEvents();
-    }
-    /**
-     * Remove/Stop any animation.
-     */
-
-
-    FolderFx.prototype._removeAnimeTargets = function () {
-      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.preview);
-      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.previewElems);
-      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.wrapper);
-      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.cover);
-      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.el);
-
-      if (this.DOM.feedback) {
-        _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.feedback);
-        this.DOM.feedback.style.opacity = 0;
-      }
-
-      if (this.DOM.letters) {
-        _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.letters);
-      }
-    };
-
-    FolderFx.prototype._initEvents = function () {
-      var self = this;
-
-      this._mouseenterFn = function () {
-        self.intimeout = setTimeout(function () {
-          self._removeAnimeTargets();
-
-          self._in();
-        }, 75);
-      };
-
-      this._mouseleaveFn = function () {
-        clearTimeout(self.intimeout);
-
-        self._removeAnimeTargets();
-
-        self._out();
-      };
-
-      this.DOM.wrapper.addEventListener('mouseenter', this._mouseenterFn);
-      this.DOM.wrapper.addEventListener('mouseleave', this._mouseleaveFn);
-    };
-
-    FolderFx.prototype._in = function () {
-      var self = this;
-      [].slice.call(this.DOM.previewElems).forEach(function (el) {// Add default behaviour.
-        //el.style.opacity = 1;
-      });
-    };
-
-    FolderFx.prototype._out = function () {
-      var self = this;
-      [].slice.call(this.DOM.previewElems).forEach(function (el) {// Add default behaviour.
-        //el.style.opacity = 0;
-      });
-    };
-
-    function ArdraFx(el) {
-      FolderFx.call(this, el);
-    }
-
-    ArdraFx.prototype = Object.create(FolderFx.prototype);
-    ArdraFx.prototype.constructor = ArdraFx;
-
-    ArdraFx.prototype._in = function () {
-      var self = this;
-      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
-        targets: this.DOM.previewElems,
-        duration: 500,
-        easing: [0.1, 1, 0.3, 1],
-        translateY: function translateY(t, i, c) {
-          var radius = _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.random(110, 120);
-          return Math.round(radius * Math.sin(2 * (i + 1) * Math.PI / c)) + 'px';
-        },
-        translateX: function translateX(t, i, c) {
-          var radius = _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.random(110, 120);
-          return Math.round(radius * Math.cos(2 * (i + 1) * Math.PI / c)) + 'px';
-        },
-        rotate: function rotate(t, i, c) {
-          return [0, _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.random(-3, 3) + 'deg'];
-        },
-        scale: [0.4, 1],
-        opacity: {
-          value: 1,
-          duration: 10,
-          easing: 'linear'
-        }
-      });
-      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
-        targets: this.DOM.wrapper,
-        duration: 500,
-        easing: [0.1, 1, 0.3, 1],
-        scale: [1, 0.8]
-      });
-      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
-        targets: this.DOM.feedback,
-        easing: [0.1, 1, 0.3, 1],
-        opacity: [{
-          value: 1,
-          duration: 10
-        }, {
-          value: 0,
-          duration: 400,
-          delay: 50
-        }],
-        scale: {
-          value: [1, 10],
-          duration: 900
-        }
-      });
-    };
-
-    ArdraFx.prototype._out = function () {
-      var self = this;
-      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
-        targets: this.DOM.previewElems,
-        duration: 500,
-        easing: [0.1, 1, 0.3, 1],
-        translateY: 0,
-        translateX: 0,
-        rotate: 0,
-        scale: [1, 0.4],
-        opacity: {
-          value: 0,
-          duration: 250,
-          delay: 250,
-          easing: 'linear'
-        }
-      });
-      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
-        targets: this.DOM.wrapper,
-        duration: 500,
-        easing: [0.1, 1, 0.3, 1],
-        scale: [0.8, 1]
-      });
-    };
-
-    window.ArdraFx = ArdraFx;
-    new ArdraFx(document.querySelector('.folder--ardra'));
+    new _Classes_FolderFx__WEBPACK_IMPORTED_MODULE_0__["default"](this.$refs.folder);
   },
   methods: {},
   computed: {}
@@ -12364,7 +12207,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "folder folder--ardra" }, [
+      _c("div", { ref: "folder", staticClass: "folder folder--ardra" }, [
         _c("div", { staticClass: "folder__feedback" }),
         _vm._v(" "),
         _c("div", { staticClass: "folder__preview folder__preview--thumbs" }, [
@@ -12996,6 +12839,171 @@ module.exports = function(text, test, separator) {
 
   return matcher;
 };
+
+
+/***/ }),
+
+/***/ "./resources/js/Classes/FolderFx.js":
+/*!******************************************!*\
+  !*** ./resources/js/Classes/FolderFx.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return FolderFx; });
+/* harmony import */ var _anime_min__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../anime.min */ "./resources/js/anime.min.js");
+/* harmony import */ var _anime_min__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_anime_min__WEBPACK_IMPORTED_MODULE_0__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var FolderFx =
+/*#__PURE__*/
+function () {
+  function FolderFx(el) {
+    _classCallCheck(this, FolderFx);
+
+    this.DOM = {};
+    this.DOM.el = el;
+    this.DOM.wrapper = this.DOM.el.querySelector('.folder__icon');
+    this.DOM.back = this.DOM.wrapper.querySelector('.folder__icon-img--back');
+    this.DOM.cover = this.DOM.wrapper.querySelector('.folder__icon-img--cover');
+    this.DOM.feedback = this.DOM.el.querySelector('.folder__feedback');
+    this.DOM.preview = this.DOM.el.querySelector('.folder__preview');
+    this.DOM.previewElems = this.DOM.preview.children;
+    this.totalPreview = this.DOM.previewElems.length;
+
+    this._initEvents();
+  }
+
+  _createClass(FolderFx, [{
+    key: "_initEvents",
+    value: function _initEvents() {
+      var self = this;
+
+      this._mouseenterFn = function () {
+        self.intimeout = setTimeout(function () {
+          self._removeAnimeTargets();
+
+          self._in();
+        }, 75);
+      };
+
+      this._mouseleaveFn = function () {
+        clearTimeout(self.intimeout);
+
+        self._removeAnimeTargets();
+
+        self._out();
+      };
+
+      this.DOM.wrapper.addEventListener('mouseenter', this._mouseenterFn);
+      this.DOM.wrapper.addEventListener('mouseleave', this._mouseleaveFn);
+    }
+  }, {
+    key: "_removeAnimeTargets",
+    value: function _removeAnimeTargets() {
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.preview);
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.previewElems);
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.wrapper);
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.cover);
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.el);
+
+      if (this.DOM.feedback) {
+        _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.feedback);
+        this.DOM.feedback.style.opacity = 0;
+      }
+
+      if (this.DOM.letters) {
+        _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.remove(this.DOM.letters);
+      }
+    }
+  }, {
+    key: "_in",
+    value: function _in() {
+      var self = this;
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
+        targets: this.DOM.previewElems,
+        duration: 500,
+        easing: [0.1, 1, 0.3, 1],
+        translateY: function translateY(t, i, c) {
+          var radius = _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.random(110, 120);
+          return Math.round(radius * Math.sin(2 * (i + 1) * Math.PI / c)) + 'px';
+        },
+        translateX: function translateX(t, i, c) {
+          var radius = _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.random(110, 120);
+          return Math.round(radius * Math.cos(2 * (i + 1) * Math.PI / c)) + 'px';
+        },
+        rotate: function rotate(t, i, c) {
+          return [0, _anime_min__WEBPACK_IMPORTED_MODULE_0___default.a.random(-3, 3) + 'deg'];
+        },
+        scale: [0.4, 1],
+        opacity: {
+          value: 1,
+          duration: 10,
+          easing: 'linear'
+        }
+      });
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
+        targets: this.DOM.wrapper,
+        duration: 500,
+        easing: [0.1, 1, 0.3, 1],
+        scale: [1, 0.8]
+      });
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
+        targets: this.DOM.feedback,
+        easing: [0.1, 1, 0.3, 1],
+        opacity: [{
+          value: 1,
+          duration: 10
+        }, {
+          value: 0,
+          duration: 400,
+          delay: 50
+        }],
+        scale: {
+          value: [1, 7],
+          duration: 900
+        }
+      });
+    }
+  }, {
+    key: "_out",
+    value: function _out() {
+      var self = this;
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
+        targets: this.DOM.previewElems,
+        duration: 500,
+        easing: [0.1, 1, 0.3, 1],
+        translateY: 0,
+        translateX: 0,
+        rotate: 0,
+        scale: [1, 0.4],
+        opacity: {
+          value: 0,
+          duration: 250,
+          delay: 250,
+          easing: 'linear'
+        }
+      });
+      _anime_min__WEBPACK_IMPORTED_MODULE_0___default()({
+        targets: this.DOM.wrapper,
+        duration: 500,
+        easing: [0.1, 1, 0.3, 1],
+        scale: [0.8, 1]
+      });
+    }
+  }]);
+
+  return FolderFx;
+}();
+
 
 
 /***/ }),
