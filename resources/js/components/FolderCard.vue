@@ -14,7 +14,7 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="folder__caption">{{ folder.name }}</h3>
+                <h3 class="folder__caption">{{ folder.name | truncate(18, '..') }}</h3>
             </div>
         </div>
     </transition>
@@ -29,6 +29,13 @@
         mounted() {
             new FocusFx(this.$refs.folderFocus);
         },
-        computed: {}
+        filters: {
+            truncate: function (text, length, suffix) {
+                if(text.length <= length) {
+                    return text;
+                }
+                return text.substring(0, length) + suffix;
+            },
+        },
     }
 </script>

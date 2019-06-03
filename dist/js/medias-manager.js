@@ -7357,7 +7357,15 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     new _Classes_FocusFx__WEBPACK_IMPORTED_MODULE_0__["default"](this.$refs.folderFocus);
   },
-  computed: {}
+  filters: {
+    truncate: function truncate(text, length, suffix) {
+      if (text.length <= length) {
+        return text;
+      }
+
+      return text.substring(0, length) + suffix;
+    }
+  }
 });
 
 /***/ }),
@@ -7373,16 +7381,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Classes_FocusFx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Classes/FocusFx */ "./resources/js/Classes/FocusFx.js");
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers */ "./resources/js/helpers.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -7436,6 +7434,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     isVideo: function isVideo() {
       return Object(_helpers__WEBPACK_IMPORTED_MODULE_1__["getType"])(this.media.mime_type) === 'video';
+    }
+  },
+  filters: {
+    truncate: function truncate(text, length, suffix) {
+      if (text.length <= length) {
+        return text;
+      }
+
+      return text.substring(0, length) + suffix;
     }
   }
 });
@@ -12048,7 +12055,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("h3", { staticClass: "folder__caption" }, [
-            _vm._v(_vm._s(_vm.folder.name))
+            _vm._v(_vm._s(_vm._f("truncate")(_vm.folder.name, 18, "..")))
           ])
         ])
       ]
@@ -12085,171 +12092,173 @@ var render = function() {
           "w-1/6 h-40 px-2 mb-3 text-center justify-center items-center flex"
       },
       [
-        _vm.isImage
-          ? [
-              _c("div", { staticClass: "folder folder--ardra" }, [
-                _c("div", { ref: "imageFocus", staticClass: "folder__icon" }, [
-                  _c("img", {
-                    ref: "imageFocus",
-                    staticClass: "image__thumb",
-                    attrs: { src: _vm.media.full_url }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("h3", { staticClass: "folder__caption" }, [
-                  _vm._v(_vm._s(_vm.media.name))
-                ])
-              ])
-            ]
-          : _vm.isVideo
-          ? [
-              _c("div", { staticClass: "folder folder--ardra" }, [
-                _c("div", { ref: "imageFocus", staticClass: "folder__icon" }, [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "svg__thumb",
-                      staticStyle: { "enable-background": "new 0 0 200 270" },
-                      attrs: {
-                        version: "1.1",
-                        id: "video_svg",
-                        xmlns: "http://www.w3.org/2000/svg",
-                        "xmlns:xlink": "http://www.w3.org/1999/xlink",
-                        x: "0px",
-                        y: "0px",
-                        viewBox: "0 0 200 270",
-                        "xml:space": "preserve"
-                      }
-                    },
-                    [
-                      _c("path", {
-                        staticClass: "st0",
-                        attrs: {
-                          d:
-                            "M22.9,1.2C10,1.2,0,11.1,0,24.1V246c0,11.9,10,22.9,22.9,22.9h154.2c11.9,0,22.9-10,22.9-22.9V60.9L140.3,1.2\n                H22.9z"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("path", {
-                        staticClass: "st1",
-                        attrs: {
-                          d:
-                            "M139.3,38V1.2L199,60.9h-36.8C149.3,60.9,139.3,50.9,139.3,38z"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("rect", {
-                        staticClass: "st2",
-                        attrs: {
-                          x: "67.3",
-                          y: "99.7",
-                          width: "64.3",
-                          height: "35.6"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("rect", {
-                        staticClass: "st2",
-                        attrs: {
-                          x: "10.2",
-                          y: "209",
-                          width: "179.6",
-                          height: "45.4"
-                        }
-                      }),
-                      _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "folder folder--ardra text-center justify-center items-center flex flex-col"
+          },
+          [
+            _c(
+              "div",
+              { ref: "imageFocus", staticClass: "folder__icon" },
+              [
+                _vm.isImage
+                  ? [
+                      _c("img", {
+                        staticClass: "image__thumb",
+                        attrs: { src: _vm.media.full_url }
+                      })
+                    ]
+                  : _vm.isVideo
+                  ? [
                       _c(
-                        "text",
+                        "svg",
                         {
-                          staticClass: "st5 st3 st6",
-                          attrs: { transform: "matrix(1 0 0 1 58 237.3994)" }
+                          staticClass: "svg__thumb",
+                          staticStyle: {
+                            "enable-background": "new 0 0 200 270"
+                          },
+                          attrs: {
+                            version: "1.1",
+                            id: "video_svg",
+                            xmlns: "http://www.w3.org/2000/svg",
+                            "xmlns:xlink": "http://www.w3.org/1999/xlink",
+                            x: "0px",
+                            y: "0px",
+                            viewBox: "0 0 200 270",
+                            "xml:space": "preserve"
+                          }
                         },
-                        [_vm._v("MP4")]
+                        [
+                          _c("path", {
+                            staticClass: "st0",
+                            attrs: {
+                              d:
+                                "M22.9,1.2C10,1.2,0,11.1,0,24.1V246c0,11.9,10,22.9,22.9,22.9h154.2c11.9,0,22.9-10,22.9-22.9V60.9L140.3,1.2\n                H22.9z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("path", {
+                            staticClass: "st1",
+                            attrs: {
+                              d:
+                                "M139.3,38V1.2L199,60.9h-36.8C149.3,60.9,139.3,50.9,139.3,38z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "67.3",
+                              y: "99.7",
+                              width: "64.3",
+                              height: "35.6"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "10.2",
+                              y: "209",
+                              width: "179.6",
+                              height: "45.4"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "text",
+                            {
+                              staticClass: "st5 st3 st6",
+                              attrs: {
+                                transform: "matrix(1 0 0 1 58 237.3994)"
+                              }
+                            },
+                            [_vm._v("MP4")]
+                          )
+                        ]
                       )
                     ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("h3", { staticClass: "folder__caption" }, [
-                  _vm._v(_vm._s(_vm.media.name))
-                ])
-              ])
-            ]
-          : [
-              _c("div", { staticClass: "folder folder--ardra" }, [
-                _c("div", { ref: "imageFocus", staticClass: "folder__icon" }, [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "svg__thumb",
-                      staticStyle: { "enable-background": "new 0 0 200 270" },
-                      attrs: {
-                        version: "1.1",
-                        id: "other_svg",
-                        xmlns: "http://www.w3.org/2000/svg",
-                        "xmlns:xlink": "http://www.w3.org/1999/xlink",
-                        x: "0px",
-                        y: "0px",
-                        viewBox: "0 0 200 270",
-                        "xml:space": "preserve"
-                      }
-                    },
-                    [
-                      _c("path", {
-                        staticClass: "st0",
-                        attrs: {
-                          d:
-                            "M22.9,1.2C10,1.2,0,11.1,0,24.1V246c0,11.9,10,22.9,22.9,22.9h154.2c11.9,0,22.9-10,22.9-22.9V60.9L140.3,1.2\n                H22.9z"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("path", {
-                        staticClass: "st1",
-                        attrs: {
-                          d:
-                            "M139.3,38V1.2L199,60.9h-36.8C149.3,60.9,139.3,50.9,139.3,38z"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("rect", {
-                        staticClass: "st2",
-                        attrs: {
-                          x: "67.3",
-                          y: "99.7",
-                          width: "64.3",
-                          height: "35.6"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("rect", {
-                        staticClass: "st2",
-                        attrs: {
-                          x: "10.2",
-                          y: "209",
-                          width: "179.6",
-                          height: "45.4"
-                        }
-                      }),
-                      _vm._v(" "),
+                  : [
                       _c(
-                        "text",
+                        "svg",
                         {
-                          staticClass: "st5 st3 st6",
-                          attrs: { transform: "matrix(1 0 0 1 30 237.3994)" }
+                          staticClass: "svg__thumb",
+                          staticStyle: {
+                            "enable-background": "new 0 0 200 270"
+                          },
+                          attrs: {
+                            version: "1.1",
+                            id: "other_svg",
+                            xmlns: "http://www.w3.org/2000/svg",
+                            "xmlns:xlink": "http://www.w3.org/1999/xlink",
+                            x: "0px",
+                            y: "0px",
+                            viewBox: "0 0 200 270",
+                            "xml:space": "preserve"
+                          }
                         },
-                        [_vm._v("OTHER")]
+                        [
+                          _c("path", {
+                            staticClass: "st0",
+                            attrs: {
+                              d:
+                                "M22.9,1.2C10,1.2,0,11.1,0,24.1V246c0,11.9,10,22.9,22.9,22.9h154.2c11.9,0,22.9-10,22.9-22.9V60.9L140.3,1.2\n                H22.9z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("path", {
+                            staticClass: "st1",
+                            attrs: {
+                              d:
+                                "M139.3,38V1.2L199,60.9h-36.8C149.3,60.9,139.3,50.9,139.3,38z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "67.3",
+                              y: "99.7",
+                              width: "64.3",
+                              height: "35.6"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "10.2",
+                              y: "209",
+                              width: "179.6",
+                              height: "45.4"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "text",
+                            {
+                              staticClass: "st5 st3 st6",
+                              attrs: {
+                                transform: "matrix(1 0 0 1 30 237.3994)"
+                              }
+                            },
+                            [_vm._v("OTHER")]
+                          )
+                        ]
                       )
                     ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("h3", { staticClass: "folder__caption" }, [
-                  _vm._v(_vm._s(_vm.media.name))
-                ])
-              ])
-            ]
-      ],
-      2
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c("h3", { staticClass: "folder__caption" }, [
+              _vm._v(_vm._s(_vm._f("truncate")(_vm.media.name, 18, "..")))
+            ])
+          ]
+        )
+      ]
     )
   ])
 }
