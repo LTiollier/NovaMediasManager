@@ -80,4 +80,5 @@
   margin: 0.75em 0 0;
   color: #396fc5;
   font-size: var(--folder-title-size); /* dynamic font sizing depending on the folder dimension */
+  white-space: nowrap;
 }
