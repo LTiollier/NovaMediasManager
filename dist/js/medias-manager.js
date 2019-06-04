@@ -7669,7 +7669,13 @@ __webpack_require__.r(__webpack_exports__);
     MediasManager: _MediasManager__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   mounted: function mounted() {
-    this.initRoot();
+    var folderId = parseInt(this.$route.params.folderId);
+
+    if (folderId && Number.isInteger(folderId)) {
+      this.changeFolder(folderId);
+    } else {
+      this.initRoot();
+    }
   },
   data: function data() {
     return {
@@ -7700,6 +7706,13 @@ __webpack_require__.r(__webpack_exports__);
 
       Object(_api_js__WEBPACK_IMPORTED_MODULE_1__["getFolder"])(id).then(function (response) {
         _this3.folder = response.data;
+
+        _this3.$router.push({
+          name: 'medias-manager',
+          params: {
+            'folderId': _this3.folder.id
+          }
+        });
       })["catch"](function (error) {
         console.log(error);
       });
@@ -7878,7 +7891,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
 
 // exports
 
@@ -14029,7 +14042,7 @@ Nova.booting(function (Vue, router) {
   Vue.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_0__["default"]);
   router.addRoutes([{
     name: 'medias-manager',
-    path: '/medias-manager',
+    path: '/medias-manager/:folderId?',
     component: __webpack_require__(/*! ./components/MediasManagerTool */ "./resources/js/components/MediasManagerTool.vue")["default"]
   }]);
 });

@@ -5,7 +5,7 @@ Nova.booting((Vue, router) => {
     router.addRoutes([
         {
             name: 'medias-manager',
-            path: '/medias-manager',
+            path: '/medias-manager/:folderId?',
             component: require('./components/MediasManagerTool').default,
         },
     ]);

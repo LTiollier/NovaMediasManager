@@ -15,7 +15,12 @@
         },
 
         mounted() {
-            this.initRoot();
+            let folderId = parseInt(this.$route.params.folderId);
+            if(folderId && Number.isInteger(folderId)) {
+                this.changeFolder(folderId);
+            } else {
+                this.initRoot();
+            }
         },
 
         data: () => ({
@@ -40,6 +45,7 @@
             changeFolder(id) {
                 getFolder(id).then((response) => {
                     this.folder = response.data;
+                    this.$router.push({ name: 'medias-manager', params: {'folderId': this.folder.id }});
                 }).catch((error) => {
                     console.log(error);
                 });
