@@ -17,7 +17,11 @@
         mounted() {
             let folderId = parseInt(this.$route.params.folderId);
             if(folderId && Number.isInteger(folderId)) {
-                this.changeFolder(folderId);
+                getFolder(folderId).then((response) => {
+                    this.folder = response.data;
+                }).catch((error) => {
+                    this.$router.push({ name: 'medias-manager' });
+                });
             } else {
                 this.initRoot();
             }
@@ -43,14 +47,24 @@
                 });
             },
             changeFolder(id) {
-                getFolder(id).then((response) => {
-                    this.folder = response.data;
-                    this.$router.push({ name: 'medias-manager', params: {'folderId': this.folder.id }});
-                }).catch((error) => {
-                    console.log(error);
-                });
+                this.$router.push({ name: 'medias-manager', params: {'folderId': id }});
             }
         },
+
+        watch: {
+            $route (to) {
+                let folderId = parseInt(to.params.folderId);
+                if(folderId && Number.isInteger(folderId)) {
+                    getFolder(folderId).then((response) => {
+                        this.folder = response.data;
+                    }).catch((error) => {
+                        this.$router.push({ name: 'medias-manager' });
+                    });
+                } else {
+                    this.initRoot();
+                }
+            }
+        }
     }
 </script>
 

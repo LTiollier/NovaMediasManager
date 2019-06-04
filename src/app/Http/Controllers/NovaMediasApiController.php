@@ -49,6 +49,20 @@ class NovaMediasApiController extends Controller
     }
 
     /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete($id)
+    {
+        $folder = Folder::find($id);
+        $folder->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Folder deleted',
+        ], 200);
+    }
+
+    /**
      * @return \Illuminate\Http\JsonResponse|mixed|\Symfony\Component\HttpFoundation\ParameterBag
      */
     public function root()

@@ -15,3 +15,9 @@ export function storeFolder(folder) {
         .post('/vendor/nova-medias-manager/folders', folder)
         .then(response => response.data);
 }
+
+export function deleteFolder(folderId) {
+    return window.axios
+        .delete('/vendor/nova-medias-manager/folders/' + folderId)
+        .then(response => response.data);
+}

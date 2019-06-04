@@ -7318,6 +7318,45 @@ module.exports = function (_Plugin) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderBreadcrumb.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FolderBreadcrumb.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "FolderBreadcrumb",
+  props: ['folderPathArray'],
+  methods: {
+    clickFolder: function clickFolder(pathArray) {
+      if (pathArray) {
+        this.$emit('clickFolder', pathArray.id);
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderCard.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FolderCard.vue?vue&type=script&lang=js& ***!
@@ -7460,11 +7499,13 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ImageCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ImageCard */ "./resources/js/components/ImageCard.vue");
 /* harmony import */ var _FolderCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FolderCard */ "./resources/js/components/FolderCard.vue");
-/* harmony import */ var _uppy_core_dist_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @uppy/core/dist/style.css */ "./node_modules/@uppy/core/dist/style.css");
-/* harmony import */ var _uppy_core_dist_style_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_uppy_core_dist_style_css__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _uppy_dashboard_dist_style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @uppy/dashboard/dist/style.css */ "./node_modules/@uppy/dashboard/dist/style.css");
-/* harmony import */ var _uppy_dashboard_dist_style_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_uppy_dashboard_dist_style_css__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../api.js */ "./resources/js/api.js");
+/* harmony import */ var _FolderBreadcrumb__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FolderBreadcrumb */ "./resources/js/components/FolderBreadcrumb.vue");
+/* harmony import */ var _uppy_core_dist_style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @uppy/core/dist/style.css */ "./node_modules/@uppy/core/dist/style.css");
+/* harmony import */ var _uppy_core_dist_style_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_uppy_core_dist_style_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _uppy_dashboard_dist_style_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @uppy/dashboard/dist/style.css */ "./node_modules/@uppy/dashboard/dist/style.css");
+/* harmony import */ var _uppy_dashboard_dist_style_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_uppy_dashboard_dist_style_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../api.js */ "./resources/js/api.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../helpers */ "./resources/js/helpers.js");
 //
 //
 //
@@ -7512,10 +7553,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
+
 
 
 
@@ -7524,6 +7562,7 @@ var Uppy = __webpack_require__(/*! @uppy/core */ "./node_modules/@uppy/core/lib/
 var Dashboard = __webpack_require__(/*! @uppy/dashboard */ "./node_modules/@uppy/dashboard/lib/index.js");
 
 var XhrUpload = __webpack_require__(/*! @uppy/xhr-upload */ "./node_modules/@uppy/xhr-upload/lib/index.js");
+
 
 
 
@@ -7575,7 +7614,8 @@ var XhrUpload = __webpack_require__(/*! @uppy/xhr-upload */ "./node_modules/@upp
   },
   components: {
     FolderCard: _FolderCard__WEBPACK_IMPORTED_MODULE_1__["default"],
-    ImageCard: _ImageCard__WEBPACK_IMPORTED_MODULE_0__["default"]
+    ImageCard: _ImageCard__WEBPACK_IMPORTED_MODULE_0__["default"],
+    FolderBreadcrumb: _FolderBreadcrumb__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -7596,7 +7636,7 @@ var XhrUpload = __webpack_require__(/*! @uppy/xhr-upload */ "./node_modules/@upp
         showCancelButton: true,
         showLoaderOnConfirm: true,
         preConfirm: function preConfirm(name) {
-          return Object(_api_js__WEBPACK_IMPORTED_MODULE_4__["storeFolder"])({
+          return Object(_api_js__WEBPACK_IMPORTED_MODULE_5__["storeFolder"])({
             name: name,
             folder: _this2.folder.id
           }).then(function (response) {
@@ -7613,7 +7653,15 @@ var XhrUpload = __webpack_require__(/*! @uppy/xhr-upload */ "./node_modules/@upp
       });
     },
     openFolder: function openFolder(folder) {
-      this.$emit('openFolder', folder.id);
+      this.openFolderById(folder.id);
+    },
+    openFolderById: function openFolderById(id) {
+      this.$emit('openFolder', id);
+    },
+    deleteFolder: function deleteFolder() {
+      if (!Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["isRoot"])(this.folder)) {
+        Object(_api_js__WEBPACK_IMPORTED_MODULE_5__["deleteFolder"])(this.folder.id);
+      }
     }
   },
   computed: {
@@ -7631,6 +7679,9 @@ var XhrUpload = __webpack_require__(/*! @uppy/xhr-upload */ "./node_modules/@upp
     },
     folderFolders: function folderFolders() {
       return this.folder ? this.folder.folders : [];
+    },
+    isDeletable: function isDeletable() {
+      return this.folder && !Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["isRoot"])(this.folder);
     }
   },
   watch: {
@@ -7669,10 +7720,18 @@ __webpack_require__.r(__webpack_exports__);
     MediasManager: _MediasManager__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   mounted: function mounted() {
+    var _this = this;
+
     var folderId = parseInt(this.$route.params.folderId);
 
     if (folderId && Number.isInteger(folderId)) {
-      this.changeFolder(folderId);
+      Object(_api_js__WEBPACK_IMPORTED_MODULE_1__["getFolder"])(folderId).then(function (response) {
+        _this.folder = response.data;
+      })["catch"](function (error) {
+        _this.$router.push({
+          name: 'medias-manager'
+        });
+      });
     } else {
       this.initRoot();
     }
@@ -7684,38 +7743,49 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     initRoot: function initRoot() {
-      var _this = this;
-
-      Object(_api_js__WEBPACK_IMPORTED_MODULE_1__["getRoot"])().then(function (response) {
-        _this.folder = response.data;
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    reloadInfoFolder: function reloadInfoFolder() {
       var _this2 = this;
 
-      Object(_api_js__WEBPACK_IMPORTED_MODULE_1__["getFolder"])(this.folder.id).then(function (response) {
+      Object(_api_js__WEBPACK_IMPORTED_MODULE_1__["getRoot"])().then(function (response) {
         _this2.folder = response.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    changeFolder: function changeFolder(id) {
+    reloadInfoFolder: function reloadInfoFolder() {
       var _this3 = this;
 
-      Object(_api_js__WEBPACK_IMPORTED_MODULE_1__["getFolder"])(id).then(function (response) {
+      Object(_api_js__WEBPACK_IMPORTED_MODULE_1__["getFolder"])(this.folder.id).then(function (response) {
         _this3.folder = response.data;
-
-        _this3.$router.push({
-          name: 'medias-manager',
-          params: {
-            'folderId': _this3.folder.id
-          }
-        });
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    changeFolder: function changeFolder(id) {
+      this.$router.push({
+        name: 'medias-manager',
+        params: {
+          'folderId': id
+        }
+      });
+    }
+  },
+  watch: {
+    $route: function $route(to) {
+      var _this4 = this;
+
+      var folderId = parseInt(to.params.folderId);
+
+      if (folderId && Number.isInteger(folderId)) {
+        Object(_api_js__WEBPACK_IMPORTED_MODULE_1__["getFolder"])(folderId).then(function (response) {
+          _this4.folder = response.data;
+        })["catch"](function (error) {
+          _this4.$router.push({
+            name: 'medias-manager'
+          });
+        });
+      } else {
+        this.initRoot();
+      }
     }
   }
 });
@@ -7872,7 +7942,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
+exports.push([module.i, "\n.container-medias {\n    max-height: 60vh;\n}\n", ""]);
 
 // exports
 
@@ -7891,7 +7961,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
 
 // exports
 
@@ -11993,6 +12063,75 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderBreadcrumb.vue?vue&type=template&id=021098fc&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FolderBreadcrumb.vue?vue&type=template&id=021098fc&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("transition", { attrs: { name: "fade" } }, [
+    _c("nav", { staticClass: "bg-grey-light rounded font-sans w-full m-4" }, [
+      _c(
+        "ol",
+        { staticClass: "list-reset flex text-grey-dark" },
+        [
+          _vm._l(_vm.folderPathArray, function(pathArray, index) {
+            return [
+              _c(
+                "li",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.clickFolder(
+                        index !== _vm.folderPathArray.length - 1
+                          ? pathArray
+                          : null
+                      )
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "text-blue",
+                      class: {
+                        "font-bold cursor-pointer":
+                          index !== _vm.folderPathArray.length - 1
+                      }
+                    },
+                    [_vm._v(_vm._s(pathArray.name))]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              index !== _vm.folderPathArray.length - 1
+                ? _c("li", [_c("span", { staticClass: "mx-2" }, [_vm._v("/")])])
+                : _vm._e()
+            ]
+          })
+        ],
+        2
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderCard.vue?vue&type=template&id=70315b6e&":
 /*!*************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FolderCard.vue?vue&type=template&id=70315b6e& ***!
@@ -12305,41 +12444,60 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "w-full flex flex-wrap" }, [
-          _c("div", { staticClass: "w-2/3 flex flex-wrap justify-start" }, [
-            _c(
-              "button",
-              {
-                staticClass:
-                  "btn btn-default btn-small btn-primary text-white mr-3",
-                on: {
-                  click: function($event) {
-                    return _vm.$emit("uploadComplete")
+          _c(
+            "div",
+            { staticClass: "w-2/3 flex flex-wrap justify-start" },
+            [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "btn btn-default btn-small btn-primary text-white mr-3",
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("uploadComplete")
+                    }
                   }
-                }
-              },
-              [_vm._v("Reload")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass:
-                  "btn btn-default btn-small btn-primary text-white mr-3",
-                attrs: { id: "UppyModalOpenerBtn" }
-              },
-              [_vm._v("\n                    Upload\n                ")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass:
-                  "btn btn-default btn-small btn-primary text-white mr-3",
-                on: { click: _vm.openFormFolder }
-              },
-              [_vm._v("Create folder")]
-            )
-          ]),
+                },
+                [_vm._v("Reload")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "btn btn-default btn-small btn-primary text-white mr-3",
+                  attrs: { id: "UppyModalOpenerBtn" }
+                },
+                [_vm._v("\n                    Upload\n                ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "btn btn-default btn-small btn-primary text-white mr-3",
+                  on: { click: _vm.openFormFolder }
+                },
+                [_vm._v("Create folder")]
+              ),
+              _vm._v(" "),
+              _c("transition", { attrs: { name: "fade" } }, [
+                _vm.isDeletable
+                  ? _c(
+                      "button",
+                      {
+                        staticClass:
+                          "btn btn-default btn-small btn-danger text-white mr-3",
+                        on: { click: _vm.deleteFolder }
+                      },
+                      [_vm._v("Delete folder")]
+                    )
+                  : _vm._e()
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "w-1/3 flex flex-wrap justify-end" }, [
             _c("div", { staticClass: "relative z-50 w-full max-w-xs" }, [
@@ -12411,39 +12569,13 @@ var render = function() {
       "div",
       { staticClass: "p-3" },
       [
-        _c(
-          "nav",
-          { staticClass: "bg-grey-light rounded font-sans w-full m-4" },
-          [
-            _c(
-              "ol",
-              { staticClass: "list-reset flex text-grey-dark" },
-              [
-                _vm._l(_vm.folderPathArray, function(pathArray, index) {
-                  return [
-                    _c("li", [
-                      _c(
-                        "span",
-                        { staticClass: "text-blue font-bold cursor-pointer" },
-                        [_vm._v(_vm._s(pathArray.name))]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    index !== _vm.folderPathArray.length - 1
-                      ? _c("li", [
-                          _c("span", { staticClass: "mx-2" }, [_vm._v("/")])
-                        ])
-                      : _vm._e()
-                  ]
-                })
-              ],
-              2
-            )
-          ]
-        ),
+        _c("folder-breadcrumb", {
+          attrs: { folderPathArray: _vm.folderPathArray },
+          on: { clickFolder: _vm.openFolderById }
+        }),
         _vm._v(" "),
         _c("transition", { attrs: { name: "fade" } }, [
-          _c("div", { staticClass: "px-2" }, [
+          _c("div", { staticClass: "px-2 overflow-y-auto container-medias" }, [
             _c(
               "div",
               { staticClass: "flex flex-wrap mx-2" },
@@ -13649,7 +13781,7 @@ var $jscomp$this = this;
 /*!*****************************!*\
   !*** ./resources/js/api.js ***!
   \*****************************/
-/*! exports provided: getRoot, getFolder, storeFolder */
+/*! exports provided: getRoot, getFolder, storeFolder, deleteFolder */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13657,6 +13789,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRoot", function() { return getRoot; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFolder", function() { return getFolder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "storeFolder", function() { return storeFolder; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFolder", function() { return deleteFolder; });
 function getRoot() {
   return window.axios.get('/vendor/nova-medias-manager/root').then(function (response) {
     return response.data;
@@ -13672,6 +13805,80 @@ function storeFolder(folder) {
     return response.data;
   });
 }
+function deleteFolder(folderId) {
+  return window.axios["delete"]('/vendor/nova-medias-manager/folders/' + folderId).then(function (response) {
+    return response.data;
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/FolderBreadcrumb.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/FolderBreadcrumb.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FolderBreadcrumb_vue_vue_type_template_id_021098fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FolderBreadcrumb.vue?vue&type=template&id=021098fc&scoped=true& */ "./resources/js/components/FolderBreadcrumb.vue?vue&type=template&id=021098fc&scoped=true&");
+/* harmony import */ var _FolderBreadcrumb_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FolderBreadcrumb.vue?vue&type=script&lang=js& */ "./resources/js/components/FolderBreadcrumb.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _FolderBreadcrumb_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FolderBreadcrumb_vue_vue_type_template_id_021098fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FolderBreadcrumb_vue_vue_type_template_id_021098fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "021098fc",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/FolderBreadcrumb.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/FolderBreadcrumb.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/FolderBreadcrumb.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderBreadcrumb_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./FolderBreadcrumb.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderBreadcrumb.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderBreadcrumb_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/FolderBreadcrumb.vue?vue&type=template&id=021098fc&scoped=true&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/FolderBreadcrumb.vue?vue&type=template&id=021098fc&scoped=true& ***!
+  \*************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderBreadcrumb_vue_vue_type_template_id_021098fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./FolderBreadcrumb.vue?vue&type=template&id=021098fc&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FolderBreadcrumb.vue?vue&type=template&id=021098fc&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderBreadcrumb_vue_vue_type_template_id_021098fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FolderBreadcrumb_vue_vue_type_template_id_021098fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -14009,12 +14216,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************!*\
   !*** ./resources/js/helpers.js ***!
   \*********************************/
-/*! exports provided: getType */
+/*! exports provided: getType, isRoot */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getType", function() { return getType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isRoot", function() { return isRoot; });
 function getType(mime_type) {
   if (mime_type.startsWith('image/')) {
     return 'image';
@@ -14023,6 +14231,9 @@ function getType(mime_type) {
   } else {
     return 'other';
   }
+}
+function isRoot(folder) {
+  return folder.id === 1 && folder.name === 'root';
 }
 
 /***/ }),

@@ -7,3 +7,7 @@ export function getType(mime_type) {
         return 'other';
     }
 }
+
+export function isRoot(folder) {
+    return folder.id === 1 && folder.name === 'root';
+}

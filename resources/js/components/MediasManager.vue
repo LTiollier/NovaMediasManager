@@ -8,6 +8,9 @@
                         Upload
                     </button>
                     <button class="btn btn-default btn-small btn-primary text-white mr-3" @click="openFormFolder">Create folder</button>
+                    <transition name="fade">
+                        <button class="btn btn-default btn-small btn-danger text-white mr-3" @click="deleteFolder" v-if="isDeletable">Delete folder</button>
+                    </transition>
                 </div>
                 <div class="w-1/3 flex flex-wrap justify-end">
                     <div class="relative z-50 w-full max-w-xs">
@@ -29,16 +32,9 @@
             </div>
         </div>
         <div class="p-3">
-            <nav class="bg-grey-light rounded font-sans w-full m-4">
-                <ol class="list-reset flex text-grey-dark">
-                    <template v-for="(pathArray, index) in folderPathArray">
-                        <li><span class="text-blue font-bold cursor-pointer">{{ pathArray.name }}</span></li>
-                        <li v-if="index !== folderPathArray.length - 1"><span class="mx-2">/</span></li>
-                    </template>
-                </ol>
-            </nav>
+            <folder-breadcrumb :folderPathArray="folderPathArray" @clickFolder="openFolderById"></folder-breadcrumb>
             <transition name="fade">
-                <div class="px-2">
+                <div class="px-2 overflow-y-auto container-medias">
                     <div class="flex flex-wrap mx-2">
                         <folder-card v-for="childFolder in folderFolders" :folder="childFolder" :key="childFolder.id" @clickFolder="openFolder(childFolder)"></folder-card>
                         <image-card v-for="media in folderMedias" :media="media" :key="media.id"></image-card>
@@ -52,12 +48,14 @@
 <script>
     import ImageCard from './ImageCard';
     import FolderCard from './FolderCard';
+    import FolderBreadcrumb from './FolderBreadcrumb';
     const Uppy = require('@uppy/core');
     const Dashboard = require('@uppy/dashboard');
     const XhrUpload = require('@uppy/xhr-upload');
     import '@uppy/core/dist/style.css';
     import '@uppy/dashboard/dist/style.css';
-    import {storeFolder} from '../api.js';
+    import {storeFolder, deleteFolder} from '../api.js';
+    import {isRoot} from "../helpers";
 
     export default {
         props: ['folder'],
@@ -103,7 +101,8 @@
 
         components: {
             FolderCard,
-            ImageCard
+            ImageCard,
+            FolderBreadcrumb
         },
 
         data: () => ({
@@ -140,7 +139,16 @@
             },
 
             openFolder(folder) {
-                this.$emit('openFolder', folder.id);
+                this.openFolderById(folder.id);
+            },
+
+            openFolderById(id) {
+                this.$emit('openFolder', id);
+            },
+            deleteFolder() {
+                if(!isRoot(this.folder)) {
+                    deleteFolder(this.folder.id)
+                }
             }
         },
 
@@ -159,6 +167,9 @@
             },
             folderFolders: function() {
                 return this.folder ? this.folder.folders : [];
+            },
+            isDeletable: function() {
+                return this.folder && !isRoot(this.folder);
             }
         },
 
@@ -171,5 +182,7 @@
 </script>
 
 <style>
-    /* Scoped Styles */
+    .container-medias {
+        max-height: 60vh;
+    }
 </style>
