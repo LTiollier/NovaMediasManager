@@ -68,7 +68,7 @@
                     maxFileSize: 1000000,
                     minNumberOfFiles: 1,
                     maxNumberOfFiles: 10,
-                    allowedFileTypes: ['image/*', '.mp4', '.mp3', 'text/*', 'application/pdf', '.doc', '.docx', '.xlt', '.xltx', '.ppt', '.pptx']
+                    allowedFileTypes: ['image/*', '.mp4', '.mp3', 'text/*', 'application/pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx']
                 },
                 meta: {
                     folderId: this.folderId,
@@ -147,7 +147,33 @@
             },
             deleteFolder() {
                 if(!isRoot(this.folder)) {
-                    deleteFolder(this.folder.id)
+                    this.$swal({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.value) {
+                            deleteFolder(this.folder.id).then(() => {
+                                this.$swal(
+                                    'Deleted!',
+                                    'Your folder has been deleted.',
+                                    'success'
+                                );
+                               this.openFolderById(this.folder.folder.id);
+                            }).catch(() => {
+                                this.$swal(
+                                    'Oups!',
+                                    'Error when deleting the folder.',
+                                    'error'
+                                );
+                                this.$emit('uploadComplete');
+                            });
+                        }
+                    });
                 }
             }
         },

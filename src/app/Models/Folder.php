@@ -80,4 +80,15 @@ class Folder extends Model implements HasMedia
     {
         return $this->getAttribute('id') === 1 && $this->getAttribute('name') === 'root';
     }
+
+    /**
+     * @throws \Exception
+     */
+    public function deleteChildrens()
+    {
+        $this->folders->each(function($folder) {
+            $folder->deleteChildrens();
+        });
+        $this->delete();
+    }
 }

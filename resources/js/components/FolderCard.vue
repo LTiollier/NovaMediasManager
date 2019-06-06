@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <div class="w-1/6 h-40 px-2 mb-3 text-center" @click="$emit('clickFolder', folder)">
-            <div class="folder folder--ardra">
+            <div class="folder folder--ardra text-center justify-center items-center flex flex-col">
                 <div class="folder__icon" ref="folderFocus">
                     <div class="folder__icon-img folder__icon-img--back">
                         <svg class="folder__icon-svg" viewBox="0 0 20 16" id="icon-folderback">

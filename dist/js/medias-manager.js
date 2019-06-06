@@ -7457,6 +7457,83 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7473,6 +7550,27 @@ __webpack_require__.r(__webpack_exports__);
     },
     isVideo: function isVideo() {
       return Object(_helpers__WEBPACK_IMPORTED_MODULE_1__["getType"])(this.media.mime_type) === 'video';
+    },
+    isPdf: function isPdf() {
+      return Object(_helpers__WEBPACK_IMPORTED_MODULE_1__["getType"])(this.media.mime_type) === 'pdf';
+    },
+    isAudio: function isAudio() {
+      return Object(_helpers__WEBPACK_IMPORTED_MODULE_1__["getType"])(this.media.mime_type) === 'audio';
+    },
+    isCsv: function isCsv() {
+      return Object(_helpers__WEBPACK_IMPORTED_MODULE_1__["getType"])(this.media.mime_type) === 'csv';
+    },
+    isText: function isText() {
+      return Object(_helpers__WEBPACK_IMPORTED_MODULE_1__["getType"])(this.media.mime_type) === 'text';
+    },
+    isXls: function isXls() {
+      return Object(_helpers__WEBPACK_IMPORTED_MODULE_1__["getType"])(this.media.mime_type) === 'xls';
+    },
+    isDoc: function isDoc() {
+      return Object(_helpers__WEBPACK_IMPORTED_MODULE_1__["getType"])(this.media.mime_type) === 'doc';
+    },
+    isPpt: function isPpt() {
+      return Object(_helpers__WEBPACK_IMPORTED_MODULE_1__["getType"])(this.media.mime_type) === 'ppt';
     }
   },
   filters: {
@@ -7579,7 +7677,7 @@ var XhrUpload = __webpack_require__(/*! @uppy/xhr-upload */ "./node_modules/@upp
         maxFileSize: 1000000,
         minNumberOfFiles: 1,
         maxNumberOfFiles: 10,
-        allowedFileTypes: ['image/*', '.mp4', '.mp3', 'text/*', 'application/pdf', '.doc', '.docx', '.xlt', '.xltx', '.ppt', '.pptx']
+        allowedFileTypes: ['image/*', '.mp4', '.mp3', 'text/*', 'application/pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx']
       },
       meta: {
         folderId: this.folderId
@@ -7659,8 +7757,30 @@ var XhrUpload = __webpack_require__(/*! @uppy/xhr-upload */ "./node_modules/@upp
       this.$emit('openFolder', id);
     },
     deleteFolder: function deleteFolder() {
+      var _this3 = this;
+
       if (!Object(_helpers__WEBPACK_IMPORTED_MODULE_6__["isRoot"])(this.folder)) {
-        Object(_api_js__WEBPACK_IMPORTED_MODULE_5__["deleteFolder"])(this.folder.id);
+        this.$swal({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then(function (result) {
+          if (result.value) {
+            Object(_api_js__WEBPACK_IMPORTED_MODULE_5__["deleteFolder"])(_this3.folder.id).then(function () {
+              _this3.$swal('Deleted!', 'Your folder has been deleted.', 'success');
+
+              _this3.openFolderById(_this3.folder.folder.id);
+            })["catch"](function () {
+              _this3.$swal('Oups!', 'Error when deleting the folder.', 'error');
+
+              _this3.$emit('uploadComplete');
+            });
+          }
+        });
       }
     }
   },
@@ -7923,7 +8043,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#other_svg .st0{fill:#F4E3B9;}\n#video_svg .st0{fill:#ff6b81;}\n.st1{opacity:0.5;fill:#fff;}\n.st2{fill:none;}\n.st3{font-family:'MyriadPro-Bold', sans-serif;}\n.st4{font-size:46px;}\n.st5{fill:#000;opacity: 0.5;}\n.st6{font-size:40px;}\n", ""]);
+exports.push([module.i, "\n#other_svg .st0{fill:#F4E3B9;}\n#video_svg .st0{fill:#ff6b81;}\n#pdf_svg .st0{fill:#CC4B4C;}\n#audio_svg .st0{fill:#7D6599;}\n#text_svg .st0{fill:#95A5A5;}\n#xls_svg .st0{fill:#91CDA0;}\n#doc_svg .st0{fill:#0096E6;}\n#ppt_svg .st0{fill:#F6712E;}\n#csv_svg .st0{fill:#F36FA0;}\n.st1{opacity:0.5;fill:#fff;}\n.st2{fill:none;}\n.st3{font-family:'MyriadPro-Bold', sans-serif;}\n.st5{fill:#000;opacity: 0.5;}\n.st6{font-size:40px;}\n", ""]);
 
 // exports
 
@@ -12159,57 +12279,64 @@ var render = function() {
         }
       },
       [
-        _c("div", { staticClass: "folder folder--ardra" }, [
-          _c("div", { ref: "folderFocus", staticClass: "folder__icon" }, [
-            _c(
-              "div",
-              { staticClass: "folder__icon-img folder__icon-img--back" },
-              [
-                _c(
-                  "svg",
-                  {
-                    staticClass: "folder__icon-svg",
-                    attrs: { viewBox: "0 0 20 16", id: "icon-folderback" }
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d:
-                          "M7.5,0C7.4,0,2,0,2,0C0.9,0,0,0.9,0,2l0,12c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4c0-1.1-0.9-2-2-2c0,0-7.5,0-8,0C9,2,9.9,0,7.5,0z"
-                      }
-                    })
-                  ]
-                )
-              ]
-            ),
+        _c(
+          "div",
+          {
+            staticClass:
+              "folder folder--ardra text-center justify-center items-center flex flex-col"
+          },
+          [
+            _c("div", { ref: "folderFocus", staticClass: "folder__icon" }, [
+              _c(
+                "div",
+                { staticClass: "folder__icon-img folder__icon-img--back" },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "folder__icon-svg",
+                      attrs: { viewBox: "0 0 20 16", id: "icon-folderback" }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M7.5,0C7.4,0,2,0,2,0C0.9,0,0,0.9,0,2l0,12c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4c0-1.1-0.9-2-2-2c0,0-7.5,0-8,0C9,2,9.9,0,7.5,0z"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "folder__icon-img folder__icon-img--cover" },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "folder__icon-svg",
+                      attrs: { id: "icon-foldercover", viewBox: "0 0 20 16" }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M2,2h16c1.1,0,2,0.9,2,2v10c0,1.1-0.9,2-2,2H2c-1.1,0-2-0.9-2-2V4C0,2.9,0.9,2,2,2z"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              )
+            ]),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "folder__icon-img folder__icon-img--cover" },
-              [
-                _c(
-                  "svg",
-                  {
-                    staticClass: "folder__icon-svg",
-                    attrs: { id: "icon-foldercover", viewBox: "0 0 20 16" }
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d:
-                          "M2,2h16c1.1,0,2,0.9,2,2v10c0,1.1-0.9,2-2,2H2c-1.1,0-2-0.9-2-2V4C0,2.9,0.9,2,2,2z"
-                      }
-                    })
-                  ]
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("h3", { staticClass: "folder__caption" }, [
-            _vm._v(_vm._s(_vm._f("truncate")(_vm.folder.name, 18, "..")))
-          ])
-        ])
+            _c("h3", { staticClass: "folder__caption" }, [
+              _vm._v(_vm._s(_vm._f("truncate")(_vm.folder.name, 18, "..")))
+            ])
+          ]
+        )
       ]
     )
   ])
@@ -12324,10 +12451,500 @@ var render = function() {
                             {
                               staticClass: "st5 st3 st6",
                               attrs: {
-                                transform: "matrix(1 0 0 1 58 237.3994)"
+                                transform: "matrix(1 0 0 1 35 237.3994)"
                               }
                             },
-                            [_vm._v("MP4")]
+                            [_vm._v("VIDEO")]
+                          )
+                        ]
+                      )
+                    ]
+                  : _vm.isPdf
+                  ? [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "svg__thumb",
+                          staticStyle: {
+                            "enable-background": "new 0 0 200 270"
+                          },
+                          attrs: {
+                            version: "1.1",
+                            id: "pdf_svg",
+                            xmlns: "http://www.w3.org/2000/svg",
+                            "xmlns:xlink": "http://www.w3.org/1999/xlink",
+                            x: "0px",
+                            y: "0px",
+                            viewBox: "0 0 200 270",
+                            "xml:space": "preserve"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            staticClass: "st0",
+                            attrs: {
+                              d:
+                                "M22.9,1.2C10,1.2,0,11.1,0,24.1V246c0,11.9,10,22.9,22.9,22.9h154.2c11.9,0,22.9-10,22.9-22.9V60.9L140.3,1.2\n                H22.9z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("path", {
+                            staticClass: "st1",
+                            attrs: {
+                              d:
+                                "M139.3,38V1.2L199,60.9h-36.8C149.3,60.9,139.3,50.9,139.3,38z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "67.3",
+                              y: "99.7",
+                              width: "64.3",
+                              height: "35.6"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "10.2",
+                              y: "209",
+                              width: "179.6",
+                              height: "45.4"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "text",
+                            {
+                              staticClass: "st5 st3 st6",
+                              attrs: {
+                                transform: "matrix(1 0 0 1 60 237.3994)"
+                              }
+                            },
+                            [_vm._v("PDF")]
+                          )
+                        ]
+                      )
+                    ]
+                  : _vm.isAudio
+                  ? [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "svg__thumb",
+                          staticStyle: {
+                            "enable-background": "new 0 0 200 270"
+                          },
+                          attrs: {
+                            version: "1.1",
+                            id: "audio_svg",
+                            xmlns: "http://www.w3.org/2000/svg",
+                            "xmlns:xlink": "http://www.w3.org/1999/xlink",
+                            x: "0px",
+                            y: "0px",
+                            viewBox: "0 0 200 270",
+                            "xml:space": "preserve"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            staticClass: "st0",
+                            attrs: {
+                              d:
+                                "M22.9,1.2C10,1.2,0,11.1,0,24.1V246c0,11.9,10,22.9,22.9,22.9h154.2c11.9,0,22.9-10,22.9-22.9V60.9L140.3,1.2\n                H22.9z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("path", {
+                            staticClass: "st1",
+                            attrs: {
+                              d:
+                                "M139.3,38V1.2L199,60.9h-36.8C149.3,60.9,139.3,50.9,139.3,38z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "67.3",
+                              y: "99.7",
+                              width: "64.3",
+                              height: "35.6"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "10.2",
+                              y: "209",
+                              width: "179.6",
+                              height: "45.4"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "text",
+                            {
+                              staticClass: "st5 st3 st6",
+                              attrs: {
+                                transform: "matrix(1 0 0 1 35 237.3994)"
+                              }
+                            },
+                            [_vm._v("AUDIO")]
+                          )
+                        ]
+                      )
+                    ]
+                  : _vm.isCsv
+                  ? [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "svg__thumb",
+                          staticStyle: {
+                            "enable-background": "new 0 0 200 270"
+                          },
+                          attrs: {
+                            version: "1.1",
+                            id: "cdv_svg",
+                            xmlns: "http://www.w3.org/2000/svg",
+                            "xmlns:xlink": "http://www.w3.org/1999/xlink",
+                            x: "0px",
+                            y: "0px",
+                            viewBox: "0 0 200 270",
+                            "xml:space": "preserve"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            staticClass: "st0",
+                            attrs: {
+                              d:
+                                "M22.9,1.2C10,1.2,0,11.1,0,24.1V246c0,11.9,10,22.9,22.9,22.9h154.2c11.9,0,22.9-10,22.9-22.9V60.9L140.3,1.2\n                H22.9z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("path", {
+                            staticClass: "st1",
+                            attrs: {
+                              d:
+                                "M139.3,38V1.2L199,60.9h-36.8C149.3,60.9,139.3,50.9,139.3,38z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "67.3",
+                              y: "99.7",
+                              width: "64.3",
+                              height: "35.6"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "10.2",
+                              y: "209",
+                              width: "179.6",
+                              height: "45.4"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "text",
+                            {
+                              staticClass: "st5 st3 st6",
+                              attrs: {
+                                transform: "matrix(1 0 0 1 60 237.3994)"
+                              }
+                            },
+                            [_vm._v("CSV")]
+                          )
+                        ]
+                      )
+                    ]
+                  : _vm.isText
+                  ? [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "svg__thumb",
+                          staticStyle: {
+                            "enable-background": "new 0 0 200 270"
+                          },
+                          attrs: {
+                            version: "1.1",
+                            id: "text_svg",
+                            xmlns: "http://www.w3.org/2000/svg",
+                            "xmlns:xlink": "http://www.w3.org/1999/xlink",
+                            x: "0px",
+                            y: "0px",
+                            viewBox: "0 0 200 270",
+                            "xml:space": "preserve"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            staticClass: "st0",
+                            attrs: {
+                              d:
+                                "M22.9,1.2C10,1.2,0,11.1,0,24.1V246c0,11.9,10,22.9,22.9,22.9h154.2c11.9,0,22.9-10,22.9-22.9V60.9L140.3,1.2\n                H22.9z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("path", {
+                            staticClass: "st1",
+                            attrs: {
+                              d:
+                                "M139.3,38V1.2L199,60.9h-36.8C149.3,60.9,139.3,50.9,139.3,38z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "67.3",
+                              y: "99.7",
+                              width: "64.3",
+                              height: "35.6"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "10.2",
+                              y: "209",
+                              width: "179.6",
+                              height: "45.4"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "text",
+                            {
+                              staticClass: "st5 st3 st6",
+                              attrs: {
+                                transform: "matrix(1 0 0 1 45 237.3994)"
+                              }
+                            },
+                            [_vm._v("TEXT")]
+                          )
+                        ]
+                      )
+                    ]
+                  : _vm.isXls
+                  ? [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "svg__thumb",
+                          staticStyle: {
+                            "enable-background": "new 0 0 200 270"
+                          },
+                          attrs: {
+                            version: "1.1",
+                            id: "xls_svg",
+                            xmlns: "http://www.w3.org/2000/svg",
+                            "xmlns:xlink": "http://www.w3.org/1999/xlink",
+                            x: "0px",
+                            y: "0px",
+                            viewBox: "0 0 200 270",
+                            "xml:space": "preserve"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            staticClass: "st0",
+                            attrs: {
+                              d:
+                                "M22.9,1.2C10,1.2,0,11.1,0,24.1V246c0,11.9,10,22.9,22.9,22.9h154.2c11.9,0,22.9-10,22.9-22.9V60.9L140.3,1.2\n                H22.9z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("path", {
+                            staticClass: "st1",
+                            attrs: {
+                              d:
+                                "M139.3,38V1.2L199,60.9h-36.8C149.3,60.9,139.3,50.9,139.3,38z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "67.3",
+                              y: "99.7",
+                              width: "64.3",
+                              height: "35.6"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "10.2",
+                              y: "209",
+                              width: "179.6",
+                              height: "45.4"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "text",
+                            {
+                              staticClass: "st5 st3 st6",
+                              attrs: {
+                                transform: "matrix(1 0 0 1 60 237.3994)"
+                              }
+                            },
+                            [_vm._v("XLS")]
+                          )
+                        ]
+                      )
+                    ]
+                  : _vm.isDoc
+                  ? [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "svg__thumb",
+                          staticStyle: {
+                            "enable-background": "new 0 0 200 270"
+                          },
+                          attrs: {
+                            version: "1.1",
+                            id: "doc_svg",
+                            xmlns: "http://www.w3.org/2000/svg",
+                            "xmlns:xlink": "http://www.w3.org/1999/xlink",
+                            x: "0px",
+                            y: "0px",
+                            viewBox: "0 0 200 270",
+                            "xml:space": "preserve"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            staticClass: "st0",
+                            attrs: {
+                              d:
+                                "M22.9,1.2C10,1.2,0,11.1,0,24.1V246c0,11.9,10,22.9,22.9,22.9h154.2c11.9,0,22.9-10,22.9-22.9V60.9L140.3,1.2\n                H22.9z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("path", {
+                            staticClass: "st1",
+                            attrs: {
+                              d:
+                                "M139.3,38V1.2L199,60.9h-36.8C149.3,60.9,139.3,50.9,139.3,38z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "67.3",
+                              y: "99.7",
+                              width: "64.3",
+                              height: "35.6"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "10.2",
+                              y: "209",
+                              width: "179.6",
+                              height: "45.4"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "text",
+                            {
+                              staticClass: "st5 st3 st6",
+                              attrs: {
+                                transform: "matrix(1 0 0 1 60 237.3994)"
+                              }
+                            },
+                            [_vm._v("DOC")]
+                          )
+                        ]
+                      )
+                    ]
+                  : _vm.isPpt
+                  ? [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "svg__thumb",
+                          staticStyle: {
+                            "enable-background": "new 0 0 200 270"
+                          },
+                          attrs: {
+                            version: "1.1",
+                            id: "ppt_svg",
+                            xmlns: "http://www.w3.org/2000/svg",
+                            "xmlns:xlink": "http://www.w3.org/1999/xlink",
+                            x: "0px",
+                            y: "0px",
+                            viewBox: "0 0 200 270",
+                            "xml:space": "preserve"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            staticClass: "st0",
+                            attrs: {
+                              d:
+                                "M22.9,1.2C10,1.2,0,11.1,0,24.1V246c0,11.9,10,22.9,22.9,22.9h154.2c11.9,0,22.9-10,22.9-22.9V60.9L140.3,1.2\n                H22.9z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("path", {
+                            staticClass: "st1",
+                            attrs: {
+                              d:
+                                "M139.3,38V1.2L199,60.9h-36.8C149.3,60.9,139.3,50.9,139.3,38z"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "67.3",
+                              y: "99.7",
+                              width: "64.3",
+                              height: "35.6"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("rect", {
+                            staticClass: "st2",
+                            attrs: {
+                              x: "10.2",
+                              y: "209",
+                              width: "179.6",
+                              height: "45.4"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "text",
+                            {
+                              staticClass: "st5 st3 st6",
+                              attrs: {
+                                transform: "matrix(1 0 0 1 60 237.3994)"
+                              }
+                            },
+                            [_vm._v("PPT")]
                           )
                         ]
                       )
@@ -14228,6 +14845,20 @@ function getType(mime_type) {
     return 'image';
   } else if (mime_type.startsWith('video/')) {
     return 'video';
+  } else if (mime_type === 'application/pdf') {
+    return 'pdf';
+  } else if (mime_type.startsWith('audio/')) {
+    return 'audio';
+  } else if (mime_type.startsWith('text/csv')) {
+    return 'csv';
+  } else if (mime_type.startsWith('text/')) {
+    return 'text';
+  } else if (['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'].indexOf(mime_type) !== -1) {
+    return 'xls';
+  } else if (['application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/msword'].indexOf(mime_type) !== -1) {
+    return 'doc';
+  } else if (['application/vnd.openxmlformats-officedocument.presentationml.presentation', 'application/vnd.ms-powerpoint'].indexOf(mime_type) !== -1) {
+    return 'ppt';
   } else {
     return 'other';
   }
@@ -14278,8 +14909,8 @@ Nova.booting(function (Vue, router) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/ltiollier/Desktop/NovaFilemanager/packages/LTiollier/NovaMediasManager/resources/js/medias-manager.js */"./resources/js/medias-manager.js");
-module.exports = __webpack_require__(/*! /Users/ltiollier/Desktop/NovaFilemanager/packages/LTiollier/NovaMediasManager/resources/sass/medias-manager.scss */"./resources/sass/medias-manager.scss");
+__webpack_require__(/*! /Users/ltiollier/Desktop/NovaPackageEnv/packages/LTiollier/NovaMediasManager/resources/js/medias-manager.js */"./resources/js/medias-manager.js");
+module.exports = __webpack_require__(/*! /Users/ltiollier/Desktop/NovaPackageEnv/packages/LTiollier/NovaMediasManager/resources/sass/medias-manager.scss */"./resources/sass/medias-manager.scss");
 
 
 /***/ })

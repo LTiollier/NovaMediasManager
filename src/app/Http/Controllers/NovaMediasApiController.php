@@ -55,7 +55,7 @@ class NovaMediasApiController extends Controller
     public function delete($id)
     {
         $folder = Folder::find($id);
-        $folder->delete();
+        $folder->deleteChildrens();
         return response()->json([
             'success' => true,
             'message' => 'Folder deleted',
