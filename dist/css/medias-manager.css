@@ -31,7 +31,7 @@
 
 .folder {
   position: relative;
-  z-index: 100;
+  z-index: 1;
   width: var(--folder-width);
 }
 
@@ -68,12 +68,33 @@
   max-height: 80px;
   max-width: 120px;
   cursor: pointer;
-  min-height: 80px;
 }
 
 .svg__thumb {
   height: 80px;
   cursor: pointer;
+}
+
+.svg__thumb .st1 {
+  opacity: 0.5;
+  fill: #fff;
+}
+
+.svg__thumb .st2 {
+  fill: none;
+}
+
+.svg__thumb .st3 {
+  font-family: "MyriadPro-Bold", sans-serif;
+}
+
+.svg__thumb .st5 {
+  fill: #000;
+  opacity: 0.5;
+}
+
+.svg__thumb .st6 {
+  font-size: 40px;
 }
 
 .folder__caption {

@@ -1,19 +1,22 @@
 <template>
     <div class="container card relative">
+        <modal-detail-media :media="media" v-if="showModalDetailMedia" @close="showModalDetailMedia = false;"></modal-detail-media>
         <div class="p-3 flex items-center justify-between border-b border-50">
             <div class="w-full flex flex-wrap">
                 <div class="w-2/3 flex flex-wrap justify-start">
-                    <button class="btn btn-default btn-small btn-primary text-white mr-3" @click="$emit('uploadComplete')">Reload</button>
-                    <button class="btn btn-default btn-small btn-primary text-white mr-3" id="UppyModalOpenerBtn">
-                        Upload
-                    </button>
-                    <button class="btn btn-default btn-small btn-primary text-white mr-3" @click="openFormFolder">Create folder</button>
-                    <transition name="fade">
-                        <button class="btn btn-default btn-small btn-danger text-white mr-3" @click="deleteFolder" v-if="isDeletable">Delete folder</button>
-                    </transition>
+                    <template v-if="!isSearching">
+                        <button class="btn btn-default btn-small btn-primary text-white mr-3" @click="$emit('uploadComplete')">Reload</button>
+                        <button class="btn btn-default btn-small btn-primary text-white mr-3" id="UppyModalOpenerBtn">
+                            Upload
+                        </button>
+                        <button class="btn btn-default btn-small btn-primary text-white mr-3" @click="openFormFolder">Create folder</button>
+                        <transition name="fade">
+                            <button class="btn btn-default btn-small btn-danger text-white mr-3" @click="deleteFolder" v-if="isDeletable">Delete folder</button>
+                        </transition>
+                    </template>
                 </div>
                 <div class="w-1/3 flex flex-wrap justify-end">
-                    <div class="relative z-50 w-full max-w-xs">
+                    <div class="relative w-full max-w-xs">
                         <div class="relative">
                             <div class="relative">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -22,7 +25,7 @@
                                     <path fill-rule="nonzero"
                                           d="M14.32 12.906l5.387 5.387a1 1 0 0 1-1.414 1.414l-5.387-5.387a8 8 0 1 1 1.414-1.414zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
                                 </svg>
-                                <input v-on:input="searchItems" v-model="search" dusk="filemanager-search" type="search"
+                                <input v-model.lazy="search" v-debounce="300" type="search"
                                        placeholder="Search"
                                        class="pl-search form-control form-input form-input-bordered w-full">
                             </div>
@@ -32,21 +35,34 @@
             </div>
         </div>
         <div class="p-3">
-            <folder-breadcrumb :folderPathArray="folderPathArray" @clickFolder="openFolderById"></folder-breadcrumb>
-            <transition name="fade">
-                <div class="px-2 overflow-y-auto container-medias">
-                    <div class="flex flex-wrap mx-2">
-                        <folder-card v-for="childFolder in folderFolders" :folder="childFolder" :key="childFolder.id" @clickFolder="openFolder(childFolder)"></folder-card>
-                        <image-card v-for="media in folderMedias" :media="media" :key="media.id"></image-card>
+            <template v-if="isSearching">
+               <search-breadcrumb :search="search"></search-breadcrumb>
+                <transition name="fade">
+                    <div class="px-2 overflow-y-auto container-medias">
+                        <div class="flex flex-wrap mx-2">
+                            <folder-card v-for="childFolder in folderFolders" :folder="childFolder" :key="childFolder.id" @clickFolder="openFolder(childFolder)"></folder-card>
+                            <media-card v-for="media in folderMedias" :media="media" :key="media.id" @clickMedia="openModalMedia(media)"></media-card>
+                        </div>
                     </div>
-                </div>
-            </transition>
+                </transition>
+            </template>
+            <template v-else>
+                <folder-breadcrumb :folderPathArray="folderPathArray" @clickFolder="openFolderById"></folder-breadcrumb>
+                <transition name="fade">
+                    <div class="px-2 overflow-y-auto container-medias">
+                        <div class="flex flex-wrap mx-2">
+                            <folder-card v-for="childFolder in folderFolders" :folder="childFolder" :key="childFolder.id" @clickFolder="openFolder(childFolder)"></folder-card>
+                            <media-card v-for="media in folderMedias" :media="media" :key="media.id" @clickMedia="openModalMedia(media)"></media-card>
+                        </div>
+                    </div>
+                </transition>
+            </template>
         </div>
     </div>
 </template>
 
 <script>
-    import ImageCard from './ImageCard';
+    import MediaCard from './FileCard';
     import FolderCard from './FolderCard';
     import FolderBreadcrumb from './FolderBreadcrumb';
     const Uppy = require('@uppy/core');
@@ -56,9 +72,24 @@
     import '@uppy/dashboard/dist/style.css';
     import {storeFolder, deleteFolder} from '../api.js';
     import {isRoot} from "../helpers";
+    import ModalDetailMedia from "./ModalDetailMedia";
+    import debounce from 'v-debounce';
+    import SearchBreadcrumb from "./SearchBreadcrumb";
 
     export default {
         props: ['folder'],
+
+        components: {
+            SearchBreadcrumb,
+            FolderCard,
+            MediaCard,
+            FolderBreadcrumb,
+            ModalDetailMedia
+        },
+
+        directives: {
+            debounce
+        },
 
         mounted() {
             this.uppy = Uppy({
@@ -99,22 +130,14 @@
             });
         },
 
-        components: {
-            FolderCard,
-            ImageCard,
-            FolderBreadcrumb
-        },
-
         data: () => ({
             search: null,
-            uppy: null
+            uppy: null,
+            media: null,
+            showModalDetailMedia: false
         }),
 
         methods: {
-            searchItems: _.debounce(function (e) {
-                this.search = e.target.value;
-                //this.getSearchData();
-            }, 300),
             openFormFolder: function() {
                 this.$swal({
                     title: 'Folder name',
@@ -145,6 +168,7 @@
             openFolderById(id) {
                 this.$emit('openFolder', id);
             },
+
             deleteFolder() {
                 if(!isRoot(this.folder)) {
                     this.$swal({
@@ -175,6 +199,11 @@
                         }
                     });
                 }
+            },
+
+            openModalMedia(media) {
+                this.media = media;
+                this.showModalDetailMedia = true;
             }
         },
 
@@ -196,12 +225,26 @@
             },
             isDeletable: function() {
                 return this.folder && !isRoot(this.folder);
+            },
+            isSearching: function() {
+                return this.folder && this.folder.search;
             }
         },
 
         watch: {
             'folder.id': function (id) {
                 this.uppy.setMeta({folderId: id});
+            },
+            'search': function(search, before) {
+                if(search.length) {
+                    if(search.length >= 3) {
+                        this.$emit('searchFiles', search);
+                    }
+                } else {
+                    if(before && before.length >= 3) {
+                        this.$emit('reset');
+                    }
+                }
             }
         }
     }

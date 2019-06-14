@@ -21,3 +21,9 @@ export function deleteFolder(folderId) {
         .delete('/vendor/nova-medias-manager/folders/' + folderId)
         .then(response => response.data);
 }
+
+export function searchFiles(search) {
+    return window.axios
+        .post('/vendor/nova-medias-manager/search', {search: search})
+        .then(response => response.data);
+}

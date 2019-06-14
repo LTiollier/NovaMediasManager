@@ -1,13 +1,13 @@
 <template>
     <div>
         <heading class="mb-6">Medias manager</heading>
-        <medias-manager :folder="folder" @uploadComplete="reloadInfoFolder" @newFolder="reloadInfoFolder" @openFolder="changeFolder"></medias-manager>
+        <medias-manager :folder="folder" @uploadComplete="reloadInfoFolder" @newFolder="reloadInfoFolder" @openFolder="changeFolder" @searchFiles="searchFiles" @reset="initRoot"></medias-manager>
     </div>
 </template>
 
 <script>
     import MediasManager from './MediasManager';
-    import {getRoot, getFolder} from '../api.js';
+    import {getRoot, getFolder, searchFiles} from '../api.js';
 
     export default {
         components: {
@@ -48,6 +48,13 @@
             },
             changeFolder(id) {
                 this.$router.push({ name: 'medias-manager', params: {'folderId': id }});
+            },
+            searchFiles(search) {
+                searchFiles(search).then((response) => {
+                    this.folder = response.data;
+                }).catch((error) => {
+                    console.log(error);
+                });
             }
         },
 

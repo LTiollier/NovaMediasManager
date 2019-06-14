@@ -5,6 +5,7 @@ namespace LTiollier\NovaMediasManager\App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use LTiollier\NovaMediasManager\App\Models\Folder;
+use Spatie\MediaLibrary\Models\Media;
 
 /**
  * Class NovaMediasApiController
@@ -94,6 +95,23 @@ class NovaMediasApiController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'upload successfully',
+        ], 200);
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        //SEARCH FOLDERS
+        $folders = Folder::where('name', 'LIKE', '%'.$search.'%')->get();
+        //SEARCH MEDIAS
+        $medias = Media::where('name', 'LIKE', '%'.$search.'%')->get();
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'search' => $search,
+                'folders' => $folders,
+                'medias' => $medias
+            ],
         ], 200);
     }
 }
